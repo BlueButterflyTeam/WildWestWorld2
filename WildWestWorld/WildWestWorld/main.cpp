@@ -43,7 +43,7 @@ int main()
 	std::thread threads[NB_NPC];
 
 
-	if (!true)
+	if (true)
 	{
 		threads[0] = std::thread(loop, &Bob);
 		threads[1] = std::thread(loop, &Elsa);
