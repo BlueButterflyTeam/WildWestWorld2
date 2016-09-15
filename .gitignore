@@ -1,0 +1,6 @@
+﻿################################################################################
+# Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
+################################################################################
+
+WildWestWorld/WildWestWorld.VC.db
+WildWestWorld/WildWestWorld.VC.VC.opendb
