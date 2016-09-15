@@ -1,78 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Fichiers de ressources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="DrunkMinerOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGameEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrunkMiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Miner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinerOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinersWife.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinersWifeOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\BaseGameEntity.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="DrunkMinerOwnedStates.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ConsoleUtils.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="BaseGameEntity.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\DrunkMiner.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="ConsoleUtils.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\EntityNames.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="DrunkMiner.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Locations.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="EntityNames.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Miner.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="Locations.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MinerOwnedStates.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="Miner.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MinersWife.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="MinerOwnedStates.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MinersWifeOwnedStates.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="MinersWife.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\State.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="MinersWifeOwnedStates.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\StateMachine.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="State.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\utils.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Headers Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\BaseGameEntity.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\DrunkMiner.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Miner.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\MinerOwnedStates.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\MinersWife.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\MinersWifeOwnedStates.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
+    <Filter Include="Headers Files">
+      <UniqueIdentifier>{7aef9615-736d-4cbf-82a4-058457b3a22e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{25061d94-2eef-4c67-a349-8fa28fca7839}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

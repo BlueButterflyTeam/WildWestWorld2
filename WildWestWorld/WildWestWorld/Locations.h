@@ -4,10 +4,10 @@
 
 enum location_type
 {
-  shack,
-  goldmine,
-  bank,
-  saloon
+	shack,
+	goldmine,
+	bank,
+	saloon
 };
 
 

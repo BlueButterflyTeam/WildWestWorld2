@@ -16,10 +16,10 @@
 
 class DrunkMiner : public Miner
 {
-private :
+private:
 	bool m_iDrunkness;
 
-public :
+public:
 	DrunkMiner(int id) : Miner(id)
 	{
 		/*delete this->m_pStateMachine;
@@ -36,7 +36,7 @@ public :
 
 	virtual void Update();
 
-	virtual void BuyAndDrinkAWhiskey(){m_iThirst = 0; m_iMoneyInBank-=2;}
+	virtual void BuyAndDrinkAWhiskey() { m_iThirst = 0; m_iMoneyInBank -= 2; }
 };
 
 #endif DRUNK_MINER_H
