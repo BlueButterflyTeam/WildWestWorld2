@@ -28,7 +28,7 @@ private:
 	DigForNugget() {}
 
 	//copy ctor and assignment should be private
-	DigForNugget(const EnterMineAndDigForNugget&);
+	DigForNugget(const DigForNugget&);
 	DigForNugget& operator=(const DigForNugget&);
 
 public:

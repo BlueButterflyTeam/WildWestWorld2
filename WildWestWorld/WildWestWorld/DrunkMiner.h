@@ -13,30 +13,38 @@
 #include <cassert>
 
 #include "Miner.h"
+#include "DrunkMinerOwnedStates.h"
 
 class DrunkMiner : public Miner
 {
 private:
-	bool m_iDrunkness;
+	bool m_bIsDrunk = false;
+
+	StateMachine<DrunkMiner>* m_pDrunkFSM;
 
 public:
 	DrunkMiner(int id) : Miner(id)
 	{
-		/*delete this->m_pStateMachine;
-
-		this->m_pStateMachine = new StateMachine<DrunkMiner>(this);
-
-		this->m_pStateMachine->SetCurrentState(GoHomeAndSleepTilRested::Instance());*/
+		m_pDrunkFSM = new StateMachine<DrunkMiner>(this);
+		m_pDrunkFSM->SetCurrentState(HomeSweetHome::Instance());
 	}
 
 	~DrunkMiner()
 	{
-		//delete this->m_pStateMachine;
+		delete m_pDrunkFSM;
 	}
 
 	virtual void Update();
 
 	virtual void BuyAndDrinkAWhiskey() { m_iThirst = 0; m_iMoneyInBank -= 2; }
+
+	bool IsDrunk() { return m_bIsDrunk; }
+
+	void GetDrunk() { m_bIsDrunk = true; }
+
+	void GetSober() { m_bIsDrunk = false; }
+
+	StateMachine<DrunkMiner>* GetDrunkFSM() const{ return m_pDrunkFSM; }
 };
 
 #endif DRUNK_MINER_H
