@@ -110,27 +110,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\BaseGameEntity.h" />
-    <ClInclude Include="..\..\ConsoleUtils.h" />
-    <ClInclude Include="..\..\DrunkMiner.h" />
-    <ClInclude Include="..\..\EntityNames.h" />
-    <ClInclude Include="..\..\Locations.h" />
-    <ClInclude Include="..\..\Miner.h" />
-    <ClInclude Include="..\..\MinerOwnedStates.h" />
-    <ClInclude Include="..\..\MinersWife.h" />
-    <ClInclude Include="..\..\MinersWifeOwnedStates.h" />
-    <ClInclude Include="..\..\State.h" />
-    <ClInclude Include="..\..\StateMachine.h" />
-    <ClInclude Include="..\..\utils.h" />
+    <ClInclude Include="BaseGameEntity.h" />
+    <ClInclude Include="ConsoleUtils.h" />
+    <ClInclude Include="DrunkMiner.h" />
+    <ClInclude Include="DrunkMinerOwnedStates.h" />
+    <ClInclude Include="EntityNames.h" />
+    <ClInclude Include="Locations.h" />
+    <ClInclude Include="Miner.h" />
+    <ClInclude Include="MinerOwnedStates.h" />
+    <ClInclude Include="MinersWife.h" />
+    <ClInclude Include="MinersWifeOwnedStates.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\BaseGameEntity.cpp" />
-    <ClCompile Include="..\..\DrunkMiner.cpp" />
-    <ClCompile Include="..\..\main.cpp" />
-    <ClCompile Include="..\..\Miner.cpp" />
-    <ClCompile Include="..\..\MinerOwnedStates.cpp" />
-    <ClCompile Include="..\..\MinersWife.cpp" />
-    <ClCompile Include="..\..\MinersWifeOwnedStates.cpp" />
+    <ClCompile Include="BaseGameEntity.cpp" />
+    <ClCompile Include="DrunkMiner.cpp" />
+    <ClCompile Include="DrunkMinerOwnedStates.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Miner.cpp" />
+    <ClCompile Include="MinerOwnedStates.cpp" />
+    <ClCompile Include="MinersWife.cpp" />
+    <ClCompile Include="MinersWifeOwnedStates.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
