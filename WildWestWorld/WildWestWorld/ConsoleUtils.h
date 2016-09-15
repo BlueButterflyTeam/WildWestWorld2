@@ -12,6 +12,9 @@
 #include <windows.h>
 #include <conio.h>
 #include <iostream>
+#include <mutex>
+
+static std::mutex mtx;
 
 //default text colors can be found in wincon.h
 inline void SetTextColor(WORD colors)
@@ -19,6 +22,17 @@ inline void SetTextColor(WORD colors)
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	SetConsoleTextAttribute(hConsole, colors);
+}
+
+inline void writeOnConsole(std::string msg, WORD colors)
+{
+	mtx.lock();
+
+	SetTextColor(colors);
+	std::cout << "\n" << msg;
+
+	mtx.unlock();
+
 }
 
 inline void PressAnyKeyToContinue()

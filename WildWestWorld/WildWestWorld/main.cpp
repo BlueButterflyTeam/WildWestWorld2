@@ -19,7 +19,7 @@ void loop(BaseGameEntity* entity)
 	{
 		entity->Update();
 
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		//std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 
@@ -61,7 +61,7 @@ int main()
 		for (int i = 0; i<2; ++i)
 		{
 			Bob.Update();
-			//Marley.Update();
+			Marley.Update();
 			Elsa.Update();
 
 			//Sleep(800);
