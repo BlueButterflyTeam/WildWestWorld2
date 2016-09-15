@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 void DrunkMiner::Update()
 {
-	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	//SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
 	m_iThirst += 1;
 

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 void Miner::Update()
 {
-	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+	//SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
 
 	m_iThirst += 1;
 
