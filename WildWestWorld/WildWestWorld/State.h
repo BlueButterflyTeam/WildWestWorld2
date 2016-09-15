@@ -9,9 +9,6 @@
 //  Author: Mat Buckland 2002 (fup@ai-junkie.com)
 //
 //------------------------------------------------------------------------
-#include <mutex>
-
-static std::mutex mtx;
 
 template <class entity_type>
 class State

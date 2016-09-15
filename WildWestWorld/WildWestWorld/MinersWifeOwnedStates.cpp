@@ -47,29 +47,18 @@ void DoHouseWork::Enter(MinersWife* wife)
 
 void DoHouseWork::Execute(MinersWife* wife)
 {
-	mtx.lock();
-	SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 	switch (RandInt(0, 2))
 	{
 	case 0:
-
-		cout << "\n" << GetNameOfEntity(wife->ID()) << ": Moppin' the floor";
-
+		writeOnConsole(GetNameOfEntity(wife->ID()) + ": Moppin' the floor", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 		break;
-
 	case 1:
-
-		cout << "\n" << GetNameOfEntity(wife->ID()) << ": Washin' the dishes";
-
+		writeOnConsole(GetNameOfEntity(wife->ID()) + ": Washin' the dishes", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 		break;
-
 	case 2:
-
-		cout << "\n" << GetNameOfEntity(wife->ID()) << ": Makin' the bed";
-
+		writeOnConsole(GetNameOfEntity(wife->ID()) + ": Makin' the bed", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 		break;
 	}
-	mtx.unlock();
 }
 
 void DoHouseWork::Exit(MinersWife* wife)
@@ -89,27 +78,19 @@ VisitBathroom* VisitBathroom::Instance()
 
 void VisitBathroom::Enter(MinersWife* wife)
 {
-	mtx.lock();
-	SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(wife->ID()) << ": Walkin' to the can. Need to powda mah pretty li'lle nose";
-	mtx.unlock();
+	writeOnConsole(GetNameOfEntity(wife->ID()) + ": Walkin' to the can. Need to powda mah pretty li'lle nose", FOREGROUND_GREEN | FOREGROUND_INTENSITY);	
 }
 
 
 void VisitBathroom::Execute(MinersWife* wife)
 {
-	mtx.lock();
-	SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(wife->ID()) << ": Ahhhhhh! Sweet relief!";
-	mtx.unlock();
+	writeOnConsole(GetNameOfEntity(wife->ID()) + ": Ahhhhhh! Sweet relief!", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 
 	wife->GetFSM()->RevertToPreviousState();
 }
 
 void VisitBathroom::Exit(MinersWife* wife)
 {
-	mtx.lock();
-	SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(wife->ID()) << ": Leavin' the Jon";
-	mtx.unlock();
+	writeOnConsole(GetNameOfEntity(wife->ID()) + ": Leavin' the Jon", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	
 }

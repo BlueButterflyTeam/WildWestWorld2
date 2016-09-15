@@ -19,7 +19,7 @@ void loop(BaseGameEntity* entity)
 	{
 		entity->Update();
 
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		//std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 
@@ -43,7 +43,7 @@ int main()
 	std::thread threads[NB_NPC];
 
 
-	if (true)
+	if (!true)
 	{
 		threads[0] = std::thread(loop, &Bob);
 		threads[1] = std::thread(loop, &Elsa);
@@ -61,7 +61,7 @@ int main()
 		for (int i = 0; i<2; ++i)
 		{
 			Bob.Update();
-			//Marley.Update();
+			Marley.Update();
 			Elsa.Update();
 
 			//Sleep(800);
