@@ -9,17 +9,17 @@
 #include "ConsoleUtils.h"
 #include "EntityNames.h"
 
-#define NB_NPC 2
+#define NB_NPC 3
 
 std::ofstream os;
 
 void loop(BaseGameEntity* entity)
 {
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		entity->Update();
 
-		//std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 
@@ -43,11 +43,11 @@ int main()
 	std::thread threads[NB_NPC];
 
 
-	if (!true)
+	if (true)
 	{
 		threads[0] = std::thread(loop, &Bob);
 		threads[1] = std::thread(loop, &Elsa);
-		//threads[2] = std::thread(loop, &Marley);
+		threads[2] = std::thread(loop, &Marley);
 
 
 		for (int i = 0; i < NB_NPC; i++)
