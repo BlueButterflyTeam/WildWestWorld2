@@ -1,0 +1,156 @@
+#ifndef DRUNK_MINER_OWNED_STATES_H
+#define DRUNK_MINER_OWNED_STATES_H
+//------------------------------------------------------------------------
+//
+//  Name:   DrunkMinerOwnedStates.h
+//
+//  Desc:   All the states that can be assigned to the Drunk Miner class
+//
+//  Author: Valryo 2016
+//
+//------------------------------------------------------------------------
+#include "State.h"
+
+class DrunkMiner;
+
+//------------------------------------------------------------------------
+//
+//  In this state the drunken miner will walk to a goldmine and pick up a 
+//  nugget of gold. If the miner already has a nugget of gold he'll change 
+//  state to VisitBankAndDepositGold. If he gets thirsty he'll change 
+//  state to QuenchThirst. If he is drunk and Bob is here, they'll pick
+//	up a fight.
+//------------------------------------------------------------------------
+class DigForNugget : public State<DrunkMiner>
+{
+private:
+
+	DigForNugget() {}
+
+	//copy ctor and assignment should be private
+	DigForNugget(const DigForNugget&);
+	DigForNugget& operator=(const DigForNugget&);
+
+public:
+
+	static DigForNugget* Instance();
+
+public:
+
+	virtual void Enter(DrunkMiner* miner);
+
+	virtual void Execute(DrunkMiner* miner);
+
+	virtual void Exit(DrunkMiner* miner);
+
+};
+
+//------------------------------------------------------------------------
+//
+//  Entity will go to a bank and deposit any nuggets he is carrying. If the 
+//  miner is subsequently wealthy enough he'll walk home, otherwise he'll
+//  keep going to get more gold
+//------------------------------------------------------------------------
+class GoToBankToSaveGold : public State<DrunkMiner>
+{
+private:
+
+	GoToBankToSaveGold() {}
+
+	//copy ctor and assignment should be private
+	GoToBankToSaveGold(const GoToBankToSaveGold&);
+	GoToBankToSaveGold& operator=(const GoToBankToSaveGold&);
+
+public:
+
+	static GoToBankToSaveGold* Instance();
+
+	virtual void Enter(DrunkMiner* miner);
+
+	virtual void Execute(DrunkMiner* miner);
+
+	virtual void Exit(DrunkMiner* miner);
+};
+
+//------------------------------------------------------------------------
+//
+//  miner will go home and sleep until his fatigue is decreased
+//  sufficiently
+//------------------------------------------------------------------------
+class HomeSweetHome : public State<DrunkMiner>
+{
+private:
+
+	HomeSweetHome() {}
+
+	//copy ctor and assignment should be private
+	HomeSweetHome(const HomeSweetHome&);
+	HomeSweetHome& operator=(const HomeSweetHome&);
+
+public:
+
+	static HomeSweetHome* Instance();
+
+	virtual void Enter(DrunkMiner* miner);
+
+	virtual void Execute(DrunkMiner* miner);
+
+	virtual void Exit(DrunkMiner* miner);
+};
+
+//------------------------------------------------------------------------
+//
+//	When drinking there's a probability our drunken miner will get drunk.
+//	If another miner is here then, they'll start fighting, otherwise he'll
+//	just go to the mine drunk.
+//------------------------------------------------------------------------
+class Drink : public State<DrunkMiner>
+{
+private:
+
+	Drink() {}
+
+	//copy ctor and assignment should be private
+	Drink(const Drink&);
+	Drink& operator=(const Drink&);
+
+public:
+
+	static Drink* Instance();
+
+	virtual void Enter(DrunkMiner* miner);
+
+	virtual void Execute(DrunkMiner* miner);
+
+	virtual void Exit(DrunkMiner* miner);
+};
+
+//------------------------------------------------------------------------
+//
+//	When drinking there's a probability our drunken miner will get drunk.
+//	If another miner is here then, they'll start fighting, otherwise he'll
+//	just go to the mine drunk.
+//------------------------------------------------------------------------
+class Fight : public State<DrunkMiner>
+{
+private:
+
+	Fight() {}
+
+	//copy ctor and assignment should be private
+	Fight(const Fight&);
+	Fight& operator=(const Fight&);
+
+public:
+
+	static Fight* Instance();
+
+	virtual void Enter(DrunkMiner* miner);
+
+	virtual void Execute(DrunkMiner* miner);
+
+	virtual void Exit(DrunkMiner* miner);
+};
+
+
+#endif

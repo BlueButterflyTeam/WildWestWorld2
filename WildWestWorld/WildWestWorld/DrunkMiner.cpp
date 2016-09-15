@@ -8,5 +8,5 @@ void DrunkMiner::Update()
 
 	m_iThirst += 1;
 
-	m_pStateMachine->Update();
+	m_pDrunkFSM->Update();
 }
