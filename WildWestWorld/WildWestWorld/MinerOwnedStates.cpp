@@ -9,10 +9,6 @@
 #include "MessageTypes.h"
 #include "CrudeTimer.h"
 
-#include <iostream>
-using std::cout;
-
-
 #ifdef TEXTOUTPUT
 #include <fstream>
 extern std::ofstream os;
@@ -181,17 +177,13 @@ void GoHomeAndSleepTilRested::Exit(Miner* pMiner)
 
 bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
 	switch (msg.Msg)
 	{
 	case Msg_StewReady:
 
-		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: " << Clock->GetCurrentTime();
-
-		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-
-		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": Okay Hun, ahm a comin'!";
+		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Okay Hun, ahm a comin'!", FOREGROUND_RED | FOREGROUND_INTENSITY);
 
 		pMiner->GetFSM()->ChangeState(EatStew::Instance());
 
@@ -262,19 +254,19 @@ EatStew* EatStew::Instance()
 
 void EatStew::Enter(Miner* pMiner)
 {
-	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Smells Reaaal goood Elsa!";
+	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Smells Reaaal goood Elsa!", FOREGROUND_RED | FOREGROUND_INTENSITY);
 }
 
 void EatStew::Execute(Miner* pMiner)
 {
-	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Tastes real good too!";
+	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Tastes real good too!", FOREGROUND_RED | FOREGROUND_INTENSITY);
 
 	pMiner->GetFSM()->RevertToPreviousState();
 }
 
 void EatStew::Exit(Miner* pMiner)
 {
-	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Thankya li'lle lady. Ah better get back to whatever ah wuz doin'";
+	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Thankya li'lle lady. Ah better get back to whatever ah wuz doin'", FOREGROUND_RED | FOREGROUND_INTENSITY);
 }
 
 

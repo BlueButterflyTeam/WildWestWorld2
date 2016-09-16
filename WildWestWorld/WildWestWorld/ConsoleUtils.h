@@ -13,6 +13,7 @@
 #include <conio.h>
 #include <iostream>
 #include <mutex>
+#include <string>
 
 static std::mutex mtx;
 

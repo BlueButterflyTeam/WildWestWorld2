@@ -6,9 +6,6 @@
 #include "MessageTypes.h"
 #include "EntityNames.h"
 
-#include <iostream>
-using std::cout;
-
 using std::set;
 
 #ifdef TEXTOUTPUT
@@ -39,7 +36,7 @@ void MessageDispatcher::Discharge(BaseGameEntity* pReceiver,
 	if (!pReceiver->HandleMessage(telegram))
 	{
 		//telegram could not be handled
-		cout << "Message not handled";
+		writeOnConsole("Message not handled", BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	}
 }
 
@@ -55,8 +52,6 @@ void MessageDispatcher::DispatchMessage(double  delay,
 	int    msg,
 	void*  ExtraInfo)
 {
-	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
 	//get pointers to the sender and receiver
 	BaseGameEntity* pSender = EntityMgr->GetEntityFromID(sender);
 	BaseGameEntity* pReceiver = EntityMgr->GetEntityFromID(receiver);
@@ -64,7 +59,7 @@ void MessageDispatcher::DispatchMessage(double  delay,
 	//make sure the receiver is valid
 	if (pReceiver == NULL)
 	{
-		cout << "\nWarning! No Receiver with ID of " << receiver << " found";
+		writeOnConsole("Warning! No Receiver with ID of " + std::to_string(receiver) + " found", BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
 		return;
 	}
@@ -75,9 +70,7 @@ void MessageDispatcher::DispatchMessage(double  delay,
 	//if there is no delay, route telegram immediately                       
 	if (delay <= 0.0f)
 	{
-		cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
-			<< " by " << GetNameOfEntity(pSender->ID()) << " for " << GetNameOfEntity(pReceiver->ID())
-			<< ". Msg is " << MsgToStr(msg);
+		writeOnConsole("Instant telegram dispatched at time: " + std::to_string(Clock->GetCurrentTime()) + " by " + GetNameOfEntity(pSender->ID()) + " for " + GetNameOfEntity(pReceiver->ID()) + ". Msg is " + MsgToStr(msg), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
 		//send the telegram to the recipient
 		Discharge(pReceiver, telegram);
@@ -93,9 +86,7 @@ void MessageDispatcher::DispatchMessage(double  delay,
 		//and put it in the queue
 		PriorityQ.insert(telegram);
 
-		cout << "\nDelayed telegram from " << GetNameOfEntity(pSender->ID()) << " recorded at time "
-			<< Clock->GetCurrentTime() << " for " << GetNameOfEntity(pReceiver->ID())
-			<< ". Msg is " << MsgToStr(msg);
+		writeOnConsole("Delayed telegram from " + GetNameOfEntity(pSender->ID()) + " recorded at time " + std::to_string(Clock->GetCurrentTime()) + " for " + GetNameOfEntity(pReceiver->ID()) + ". Msg is " + MsgToStr(msg), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
 	}
 }
@@ -108,17 +99,13 @@ void MessageDispatcher::DispatchMessage(double  delay,
 //------------------------------------------------------------------------
 void MessageDispatcher::DispatchDelayedMessages()
 {
-	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
 	//get current time
 	double CurrentTime = Clock->GetCurrentTime();
 
 	//now peek at the queue to see if any telegrams need dispatching.
 	//remove all telegrams from the front of the queue that have gone
 	//past their sell by date
-	while (!PriorityQ.empty() &&
-		(PriorityQ.begin()->DispatchTime < CurrentTime) &&
-		(PriorityQ.begin()->DispatchTime > 0))
+	while (!PriorityQ.empty() && (PriorityQ.begin()->DispatchTime < CurrentTime) && (PriorityQ.begin()->DispatchTime > 0))
 	{
 		//read the telegram from the front of the queue
 		const Telegram& telegram = *PriorityQ.begin();
@@ -126,8 +113,7 @@ void MessageDispatcher::DispatchDelayedMessages()
 		//find the recipient
 		BaseGameEntity* pReceiver = EntityMgr->GetEntityFromID(telegram.Receiver);
 
-		cout << "\nQueued telegram ready for dispatch: Sent to "
-			<< GetNameOfEntity(pReceiver->ID()) << ". Msg is " << MsgToStr(telegram.Msg);
+		writeOnConsole("Queued telegram ready for dispatch: Sent to " + GetNameOfEntity(pReceiver->ID()) + ". Msg is " + MsgToStr(telegram.Msg), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
 		//send the telegram to the recipient
 		Discharge(pReceiver, telegram);
