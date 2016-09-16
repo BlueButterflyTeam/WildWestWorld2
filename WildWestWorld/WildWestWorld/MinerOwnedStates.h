@@ -14,7 +14,7 @@
 
 
 class Miner;
-
+struct Telegram;
 
 
 //------------------------------------------------------------------------
@@ -46,6 +46,8 @@ public:
 
 	virtual void Exit(Miner* miner);
 
+	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+
 };
 
 //------------------------------------------------------------------------
@@ -73,6 +75,8 @@ public:
 	virtual void Execute(Miner* miner);
 
 	virtual void Exit(Miner* miner);
+
+	virtual bool OnMessage(Miner* agent, const Telegram& msg);
 };
 
 
@@ -100,6 +104,8 @@ public:
 	virtual void Execute(Miner* miner);
 
 	virtual void Exit(Miner* miner);
+
+	virtual bool OnMessage(Miner* agent, const Telegram& msg);
 };
 
 
@@ -125,9 +131,39 @@ public:
 	virtual void Execute(Miner* miner);
 
 	virtual void Exit(Miner* miner);
+
+	virtual bool OnMessage(Miner* agent, const Telegram& msg);
 };
 
 
+//------------------------------------------------------------------------
+//
+//  this is implemented as a state blip. The miner eats the stew, gives
+//  Elsa some compliments and then returns to his previous state
+//------------------------------------------------------------------------
+class EatStew : public State<Miner>
+{
+private:
+
+	EatStew() {}
+
+	//copy ctor and assignment should be private
+	EatStew(const EatStew&);
+	EatStew& operator=(const EatStew&);
+
+public:
+
+	//this is a singleton
+	static EatStew* Instance();
+
+	virtual void Enter(Miner* miner);
+
+	virtual void Execute(Miner* miner);
+
+	virtual void Exit(Miner* miner);
+
+	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+};
 
 
 

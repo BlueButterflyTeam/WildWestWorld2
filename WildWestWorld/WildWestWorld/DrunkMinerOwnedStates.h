@@ -43,6 +43,8 @@ public:
 
 	virtual void Exit(DrunkMiner* miner);
 
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
+
 };
 
 //------------------------------------------------------------------------
@@ -70,6 +72,8 @@ public:
 	virtual void Execute(DrunkMiner* miner);
 
 	virtual void Exit(DrunkMiner* miner);
+
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -96,6 +100,8 @@ public:
 	virtual void Execute(DrunkMiner* miner);
 
 	virtual void Exit(DrunkMiner* miner);
+
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -123,6 +129,8 @@ public:
 	virtual void Execute(DrunkMiner* miner);
 
 	virtual void Exit(DrunkMiner* miner);
+
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -150,6 +158,8 @@ public:
 	virtual void Execute(DrunkMiner* miner);
 
 	virtual void Exit(DrunkMiner* miner);
+
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
 };
 
 

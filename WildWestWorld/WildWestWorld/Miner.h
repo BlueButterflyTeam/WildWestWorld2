@@ -69,6 +69,9 @@ public:
 	//this must be implemented
 	virtual void Update();
 
+	//so must this
+	virtual bool  HandleMessage(const Telegram& msg);
+
 	StateMachine<Miner>*  GetFSM()const { return m_pStateMachine; }
 
 

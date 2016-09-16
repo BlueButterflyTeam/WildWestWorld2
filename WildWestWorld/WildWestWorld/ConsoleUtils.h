@@ -32,7 +32,6 @@ inline void writeOnConsole(std::string msg, WORD colors)
 	std::cout << "\n" << msg;
 
 	mtx.unlock();
-
 }
 
 inline void PressAnyKeyToContinue()

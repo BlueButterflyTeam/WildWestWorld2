@@ -1,5 +1,14 @@
 #ifndef MINERSWIFE_H
 #define MINERSWIFE_H
+//------------------------------------------------------------------------
+//
+//  Name: MinersWife.h
+//
+//  Desc: class to implement Miner Bob's wife.
+//
+//  Author: Mat Buckland 2003 (fup@ai-junkie.com)
+//
+//------------------------------------------------------------------------
 
 #include <string>
 
@@ -19,17 +28,22 @@ class MinersWife : public BaseGameEntity
 private:
 
 	//an instance of the state machine class
-	StateMachine<MinersWife>*  m_pStateMachine;
+	StateMachine<MinersWife>* m_pStateMachine;
 
-	location_type              m_Location;
+	location_type   m_Location;
+
+	//is she presently cooking?
+	bool            m_bCooking;
 
 
 public:
 
-	MinersWife(int id) :BaseGameEntity(id),
-		m_Location(shack)
+	MinersWife(int id) :m_Location(shack),
+		m_bCooking(false),
+		BaseGameEntity(id)
 
 	{
+		//set up the state machine
 		m_pStateMachine = new StateMachine<MinersWife>(this);
 
 		m_pStateMachine->SetCurrentState(DoHouseWork::Instance());
@@ -40,16 +54,21 @@ public:
 	~MinersWife() { delete m_pStateMachine; }
 
 
-	void Update();
+	//this must be implemented
+	void          Update();
 
-	StateMachine<MinersWife>*  GetFSM()const { return m_pStateMachine; }
+	//so must this
+	virtual bool  HandleMessage(const Telegram& msg);
+
+	StateMachine<MinersWife>* GetFSM()const { return m_pStateMachine; }
 
 	//----------------------------------------------------accessors
 	location_type Location()const { return m_Location; }
-	void          ChangeLocation(const location_type loc) { m_Location = loc; }
+	void          ChangeLocation(location_type loc) { m_Location = loc; }
+
+	bool          Cooking()const { return m_bCooking; }
+	void          SetCooking(bool val) { m_bCooking = val; }
 
 };
-
-
 
 #endif

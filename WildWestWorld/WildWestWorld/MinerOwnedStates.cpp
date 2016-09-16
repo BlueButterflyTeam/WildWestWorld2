@@ -4,6 +4,10 @@
 #include "Locations.h"
 #include "EntityNames.h"
 #include "ConsoleUtils.h"
+#include "Telegram.h"
+#include "MessageDispatcher.h"
+#include "MessageTypes.h"
+#include "CrudeTimer.h"
 
 #include <iostream>
 using std::cout;
@@ -67,7 +71,11 @@ void EnterMineAndDigForNugget::Exit(Miner* pMiner)
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Ah'm leavin' the goldmine with mah pockets full o' sweet gold", FOREGROUND_RED | FOREGROUND_INTENSITY);
 }
 
-
+bool EnterMineAndDigForNugget::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
 
 //----------------------------------------methods for VisitBankAndDepositGold
 
@@ -122,6 +130,12 @@ void VisitBankAndDepositGold::Exit(Miner* pMiner)
 }
 
 
+bool VisitBankAndDepositGold::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+
 //----------------------------------------methods for GoHomeAndSleepTilRested
 
 GoHomeAndSleepTilRested* GoHomeAndSleepTilRested::Instance()
@@ -165,7 +179,28 @@ void GoHomeAndSleepTilRested::Exit(Miner* pMiner)
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Leaving the house", FOREGROUND_RED | FOREGROUND_INTENSITY);
 }
 
+bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
+	switch (msg.Msg)
+	{
+	case Msg_StewReady:
+
+		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID()) << " at time: " << Clock->GetCurrentTime();
+
+		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": Okay Hun, ahm a comin'!";
+
+		pMiner->GetFSM()->ChangeState(EatStew::Instance());
+
+		return true;
+
+	}//end switch
+
+	return false; //send message to global message handler
+}
 
 
 //------------------------------------------------methods for QuenchThirst
@@ -207,4 +242,44 @@ void QuenchThirst::Execute(Miner* pMiner)
 void QuenchThirst::Exit(Miner* pMiner)
 {
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Leaving the saloon, feelin' good", FOREGROUND_RED | FOREGROUND_INTENSITY);
+}
+
+bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+
+//------------------------------------------------------------------------EatStew
+
+EatStew* EatStew::Instance()
+{
+	static EatStew instance;
+
+	return &instance;
+}
+
+
+void EatStew::Enter(Miner* pMiner)
+{
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Smells Reaaal goood Elsa!";
+}
+
+void EatStew::Execute(Miner* pMiner)
+{
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Tastes real good too!";
+
+	pMiner->GetFSM()->RevertToPreviousState();
+}
+
+void EatStew::Exit(Miner* pMiner)
+{
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Thankya li'lle lady. Ah better get back to whatever ah wuz doin'";
+}
+
+
+bool EatStew::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
 }
