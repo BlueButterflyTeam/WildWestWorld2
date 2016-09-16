@@ -12,7 +12,7 @@
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
 
-#define NB_NPC 2
+#define NB_NPC 3
 
 std::ofstream os;
 
@@ -41,11 +41,12 @@ int main()
 	MinersWife* Elsa = new MinersWife(ent_Elsa);
 
 	////create a drunk miner
-	//DrunkMiner* Marley = new DrunkMiner(ent_DrunkMiner_Marley);
+	DrunkMiner* Marley = new DrunkMiner(ent_DrunkMiner_Marley);
 
 	//register them with the entity manager
 	EntityMgr->RegisterEntity(Bob);
 	EntityMgr->RegisterEntity(Elsa);
+	EntityMgr->RegisterEntity(Marley);
 
 	std::thread threads[NB_NPC];
 
@@ -54,7 +55,7 @@ int main()
 	{
 		threads[0] = std::thread(loop, Bob);
 		threads[1] = std::thread(loop, Elsa);
-		//threads[2] = std::thread(loop, Marley);
+		threads[2] = std::thread(loop, Marley);
 
 
 		for (int i = 0; i < NB_NPC; i++)
@@ -69,7 +70,7 @@ int main()
 		{
 			Bob->Update();
 			Elsa->Update();
-			//Marley->Update();
+			Marley->Update();
 
 			//dispatch any delayed messages
 			Dispatch->DispatchDelayedMessages();
