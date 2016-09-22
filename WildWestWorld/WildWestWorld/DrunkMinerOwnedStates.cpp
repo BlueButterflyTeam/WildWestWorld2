@@ -90,6 +90,12 @@ void DigForNugget::Exit(DrunkMiner* pMiner)
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Ah'm leavin' the goldmine with mah pockets full o' sweet gold", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 }
 
+bool DigForNugget::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+
 //----------------------------------------methods for GoToBankToSaveGold
 
 GoToBankToSaveGold* GoToBankToSaveGold::Instance()
@@ -142,6 +148,12 @@ void GoToBankToSaveGold::Exit(DrunkMiner* pMiner)
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Leavin' the bank", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 }
 
+bool GoToBankToSaveGold::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+
 
 //----------------------------------------methods for HomeSweetHome
 
@@ -184,6 +196,12 @@ void HomeSweetHome::Execute(DrunkMiner* pMiner)
 void HomeSweetHome::Exit(DrunkMiner* pMiner)
 {
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Leaving the house", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+}
+
+bool HomeSweetHome::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
 }
 
 //------------------------------------------------methods for Drink
@@ -244,6 +262,11 @@ void Drink::Exit(DrunkMiner* pMiner)
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Leaving the saloon, feelin' good", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 }
 
+bool Drink::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
 
 //------------------------------------------------methods for Fight
 Fight* Fight::Instance()
@@ -266,4 +289,10 @@ void Fight::Execute(DrunkMiner* pMiner)
 void Fight::Exit(DrunkMiner* pMiner)
 {
 
+}
+
+bool Fight::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
 }

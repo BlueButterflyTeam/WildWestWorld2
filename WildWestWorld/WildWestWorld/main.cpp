@@ -1,6 +1,7 @@
 #include <fstream>
 #include <thread>
 #include <chrono>
+#include <time.h>
 
 #include "Locations.h"
 #include "Miner.h"
@@ -8,6 +9,8 @@
 #include "MinersWife.h"
 #include "ConsoleUtils.h"
 #include "EntityNames.h"
+#include "EntityManager.h"
+#include "MessageDispatcher.h"
 
 #define NB_NPC 3
 
@@ -32,22 +35,27 @@ int main()
 #endif
 
 	//create a miner
-	Miner Bob(ent_Miner_Bob);
-
-	//create a drunk miner
-	DrunkMiner Marley(ent_DrunkMiner_Marley);
+	Miner* Bob = new Miner(ent_Miner_Bob);
 
 	//create his wife
-	MinersWife Elsa(ent_Elsa);
+	MinersWife* Elsa = new MinersWife(ent_Elsa);
+
+	////create a drunk miner
+	DrunkMiner* Marley = new DrunkMiner(ent_DrunkMiner_Marley);
+
+	//register them with the entity manager
+	EntityMgr->RegisterEntity(Bob);
+	EntityMgr->RegisterEntity(Elsa);
+	EntityMgr->RegisterEntity(Marley);
 
 	std::thread threads[NB_NPC];
 
 
 	if (true)
 	{
-		threads[0] = std::thread(loop, &Bob);
-		threads[1] = std::thread(loop, &Elsa);
-		threads[2] = std::thread(loop, &Marley);
+		threads[0] = std::thread(loop, Bob);
+		threads[1] = std::thread(loop, Elsa);
+		threads[2] = std::thread(loop, Marley);
 
 
 		for (int i = 0; i < NB_NPC; i++)
@@ -60,9 +68,12 @@ int main()
 		//run Bob and Elsa through a few Update calls
 		for (int i = 0; i<2; ++i)
 		{
-			Bob.Update();
-			Marley.Update();
-			Elsa.Update();
+			Bob->Update();
+			Elsa->Update();
+			Marley->Update();
+
+			//dispatch any delayed messages
+			Dispatch->DispatchDelayedMessages();
 
 			//Sleep(800);
 		}

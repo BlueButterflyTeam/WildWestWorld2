@@ -1,6 +1,10 @@
 #include "Miner.h"
 #include "ConsoleUtils.h"
 
+bool Miner::HandleMessage(const Telegram& msg)
+{
+	return m_pStateMachine->HandleMessage(msg);
+}
 
 //-----------------------------------------------------------------------------
 void Miner::Update()

@@ -6,9 +6,10 @@
 //
 //  Desc:   abstract base class to define an interface for a state
 //
-//  Author: Mat Buckland 2002 (fup@ai-junkie.com)
+//  Author: Mat Buckland (fup@ai-junkie.com)
 //
 //------------------------------------------------------------------------
+struct Telegram;
 
 template <class entity_type>
 class State
@@ -23,9 +24,12 @@ public:
 	//this is the states normal update function
 	virtual void Execute(entity_type*) = 0;
 
-	//this will execute when the state is exited. (My word, isn't
-	//life full of surprises... ;o))
+	//this will execute when the state is exited. 
 	virtual void Exit(entity_type*) = 0;
+
+	//this executes if the agent receives a message from the 
+	//message dispatcher
+	virtual bool OnMessage(entity_type*, const Telegram&) = 0;
 };
 
 #endif
