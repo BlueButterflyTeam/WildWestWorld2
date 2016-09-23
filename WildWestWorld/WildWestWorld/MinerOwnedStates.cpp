@@ -32,6 +32,12 @@ void EnterMineAndDigForNugget::Enter(Miner* pMiner)
 	{
 		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Walkin' to the goldmine", FOREGROUND_RED | FOREGROUND_INTENSITY);
 
+		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+			pMiner->ID(),        //ID of sender
+			ent_DrunkMiner_Marley,            //ID of recipient
+			Msg_AtTheMine,   //the message
+			NO_ADDITIONAL_INFO);
+
 		pMiner->ChangeLocation(goldmine);
 	}
 }
@@ -69,8 +75,14 @@ void EnterMineAndDigForNugget::Exit(Miner* pMiner)
 
 bool EnterMineAndDigForNugget::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-	//send msg to global message handler
-	return false;
+	switch (msg.Msg)
+	{
+	case Msg_AtTheMine:
+		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh man, there's Marley, I think he forgot his pickaxe, again!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		return true;
+	}//end switch
+	return false; //send message to global message handler
 }
 
 //----------------------------------------methods for VisitBankAndDepositGold
@@ -119,7 +131,6 @@ void VisitBankAndDepositGold::Execute(Miner* pMiner)
 
 }
 
-
 void VisitBankAndDepositGold::Exit(Miner* pMiner)
 {
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Leavin' the bank", FOREGROUND_RED | FOREGROUND_INTENSITY);
@@ -148,6 +159,12 @@ void GoHomeAndSleepTilRested::Enter(Miner* pMiner)
 		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Walkin' home", FOREGROUND_RED | FOREGROUND_INTENSITY);
 
 		pMiner->ChangeLocation(shack);
+
+		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+			pMiner->ID(),        //ID of sender
+			ent_Elsa,            //ID of recipient
+			Msg_HiHoneyImHome,   //the message
+			NO_ADDITIONAL_INFO);
 	}
 }
 
@@ -194,7 +211,6 @@ bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Telegram& msg)
 	return false; //send message to global message handler
 }
 
-
 //------------------------------------------------methods for QuenchThirst
 
 QuenchThirst* QuenchThirst::Instance()
@@ -211,6 +227,12 @@ void QuenchThirst::Enter(Miner* pMiner)
 		pMiner->ChangeLocation(saloon);
 
 		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Boy, ah sure is thusty! Walking to the saloon", FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+			pMiner->ID(),        //ID of sender
+			ent_DrunkMiner_Marley,            //ID of recipient
+			Msg_AtTheSaloon,   //the message
+			NO_ADDITIONAL_INFO);
 	}
 }
 
@@ -239,7 +261,14 @@ void QuenchThirst::Exit(Miner* pMiner)
 bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 {
 	//send msg to global message handler
-	return false;
+	switch (msg.Msg)
+	{
+	case Msg_AtTheSaloon:
+		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh man, there's Marley, I think he drank too much, again!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		return true;
+	}//end switch
+	return false; //send message to global message handler
 }
 
 //------------------------------------------------------------------------EatStew
@@ -271,6 +300,55 @@ void EatStew::Exit(Miner* pMiner)
 
 
 bool EatStew::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	//send msg to global message handler
+	return false;
+}
+
+//------------------------------------------------methods for Fight
+Fight* Fight::Instance()
+{
+	static Fight instance;
+
+	return &instance;
+}
+
+void Fight::Enter(Miner* pMiner)
+{
+	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+		pMiner->ID(),        //ID of sender
+		ent_DrunkMiner_Marley,            //ID of recipient
+		Msg_LetsFight,   //the message
+		NO_ADDITIONAL_INFO);
+}
+
+void Fight::Execute(Miner* pMiner)
+{
+	pMiner->IncreaseFatigue();
+
+	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Am not gonna loose this fight!", FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+
+	if (pMiner->Thirsty())
+	{
+		pMiner->GetFSM()->ChangeState(QuenchThirst::Instance());
+	}
+	if (pMiner->Fatigued())
+	{
+		pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
+	}
+}
+
+void Fight::Exit(Miner* pMiner)
+{
+	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+		pMiner->ID(),        //ID of sender
+		ent_DrunkMiner_Marley,            //ID of recipient
+		Msg_LeavingFight,   //the message
+		NO_ADDITIONAL_INFO);
+
+}
+
+bool Fight::OnMessage(Miner* pMiner, const Telegram& msg)
 {
 	//send msg to global message handler
 	return false;

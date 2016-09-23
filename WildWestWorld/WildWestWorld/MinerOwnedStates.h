@@ -165,6 +165,33 @@ public:
 	virtual bool OnMessage(Miner* agent, const Telegram& msg);
 };
 
+//------------------------------------------------------------------------
+//
+//	When drinking there's a probability our drunken miner will get drunk.
+//	If another miner is here then, they'll start fighting, otherwise he'll
+//	just go to the mine drunk.
+//------------------------------------------------------------------------
+class Fight : public State<Miner>
+{
+private:
 
+	Fight() {}
+
+	//copy ctor and assignment should be private
+	Fight(const Fight&);
+	Fight& operator=(const Fight&);
+
+public:
+
+	static Fight* Instance();
+
+	virtual void Enter(Miner* miner);
+
+	virtual void Execute(Miner* miner);
+
+	virtual void Exit(Miner* miner);
+
+	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+};
 
 #endif

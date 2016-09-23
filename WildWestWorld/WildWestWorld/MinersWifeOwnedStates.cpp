@@ -175,8 +175,6 @@ void CookStew::Execute(MinersWife* wife)
 
 void CookStew::Exit(MinersWife* wife)
 {
-	SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-
 	writeOnConsole(GetNameOfEntity(wife->ID()) + ": Puttin' the stew on the table", FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 }
 

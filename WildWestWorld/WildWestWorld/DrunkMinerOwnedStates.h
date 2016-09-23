@@ -139,19 +139,19 @@ public:
 //	If another miner is here then, they'll start fighting, otherwise he'll
 //	just go to the mine drunk.
 //------------------------------------------------------------------------
-class Fight : public State<DrunkMiner>
+class Fighting : public State<DrunkMiner>
 {
 private:
 
-	Fight() {}
+	Fighting() {}
 
 	//copy ctor and assignment should be private
-	Fight(const Fight&);
-	Fight& operator=(const Fight&);
+	Fighting(const Fighting&);
+	Fighting& operator=(const Fighting&);
 
 public:
 
-	static Fight* Instance();
+	static Fighting* Instance();
 
 	virtual void Enter(DrunkMiner* miner);
 
