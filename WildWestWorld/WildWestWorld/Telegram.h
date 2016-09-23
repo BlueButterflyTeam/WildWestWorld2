@@ -87,8 +87,7 @@ inline bool operator<(const Telegram& t1, const Telegram& t2)
 
 inline std::ostream& operator<<(std::ostream& os, const Telegram& t)
 {
-	os << "time: " << t.DispatchTime << "  Sender: " << t.Sender
-		<< "   Receiver: " << t.Receiver << "   Msg: " << t.Msg;
+	os << "time: " << t.DispatchTime << "  Sender: " << t.Sender << "   Receiver: " << t.Receiver << "   Msg: " << t.Msg;
 
 	return os;
 }

@@ -26,7 +26,7 @@ public:
 	DrunkMiner(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 20) : Miner(id, texture, font, c, size)
 	{
 		m_pDrunkFSM = new StateMachine<DrunkMiner>(this);
-		m_pDrunkFSM->SetCurrentState(HomeSweetHome::Instance());
+		m_pDrunkFSM->SetCurrentState(DigForNugget::Instance());
 	}
 
 	~DrunkMiner()
@@ -35,6 +35,8 @@ public:
 	}
 
 	virtual void Update();
+
+	virtual bool  HandleMessage(const Telegram& msg);
 
 	virtual void BuyAndDrinkAWhiskey() { m_iThirst = 0; m_iMoneyInBank -= 2; }
 

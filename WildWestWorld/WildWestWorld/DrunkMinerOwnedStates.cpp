@@ -32,23 +32,11 @@ void DigForNugget::Enter(DrunkMiner* pMiner)
 	//change location to the gold mine
 	if (pMiner->Location() != goldmine)
 	{
-		if (pMiner->IsDrunk())
-		{
-			writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Walkin' to the goldmine", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
-
-			Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
-				pMiner->ID(),        //ID of sender
-				ent_Miner_Bob,            //ID of recipient
-				Msg_AtTheMine,   //the message
-				NO_ADDITIONAL_INFO);
-		}
-		else
-		{
-			writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Walkin' to the goldmine", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-		}
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Walkin' to the goldmine", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
 		pMiner->ChangeLocation(goldmine);
 	}
+
 	//if drunk & another miner is there, pick a fight
 	//if drunk and alone, taking someone else's pickaxe
 	if (pMiner->IsDrunk())
@@ -106,13 +94,17 @@ void DigForNugget::Exit(DrunkMiner* pMiner)
 
 bool DigForNugget::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
 {
-	switch (msg.Msg)
+	if (pMiner->IsDrunk())
 	{
-	case Msg_AtTheMine:
-		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Test!", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
-		return true;
-	}//end switch
+		switch (msg.Msg)
+		{
+		case Msg_AtTheMine:
+			writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+			writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Hey! That's mah pickaxe!!", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
+			//pMiner->GetDrunkFSM()->ChangeState(Fighting::Instance());
+			return true;
+		}//end switch
+	}
 	return false; //send message to global message handler
 }
 
@@ -169,8 +161,7 @@ void GoToBankToSaveGold::Exit(DrunkMiner* pMiner)
 
 bool GoToBankToSaveGold::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
 {
-	//send msg to global message handler
-	return false;
+	return false; //send message to global message handler
 }
 
 
@@ -185,6 +176,7 @@ HomeSweetHome* HomeSweetHome::Instance()
 
 void HomeSweetHome::Enter(DrunkMiner* pMiner)
 {
+	pMiner->GetSober();
 	if (pMiner->Location() != shack)
 	{
 		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Walkin' home", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
@@ -219,9 +211,9 @@ void HomeSweetHome::Exit(DrunkMiner* pMiner)
 
 bool HomeSweetHome::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
 {
-	//send msg to global message handler
-	return false;
+	return false; //send message to global message handler
 }
+
 
 //------------------------------------------------methods for Drink
 
@@ -244,15 +236,6 @@ void Drink::Enter(DrunkMiner* pMiner)
 		else
 		{
 			writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Boy, ah sure is thusty! Walking to the saloon", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-		}
-
-		if (pMiner->IsDrunk())
-		{
-			Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
-				pMiner->ID(),        //ID of sender
-				ent_Miner_Bob,          //ID of recipient
-				Msg_AtTheSaloon,   //the message
-				NO_ADDITIONAL_INFO);
 		}
 	}
 }
@@ -292,22 +275,22 @@ void Drink::Exit(DrunkMiner* pMiner)
 
 bool Drink::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
 {
+	if (pMiner->IsDrunk())
+	{
 		switch (msg.Msg)
 		{
 		case Msg_AtTheSaloon:
-			if (pMiner->IsDrunk())
-			{
-				writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-				writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": I challenge you to a duel!", FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-				pMiner->GetDrunkFSM()->ChangeState(Fighting::Instance());
-				return true;
-			}
-
+			writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+			writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh, hey Bob!", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
+			//pMiner->GetDrunkFSM()->ChangeState(Fighting::Instance());
+			return true;
 		}//end switch
-		return false; //send message to global message handler	
+	}
+	return false; //send message to global message handler
 }
 
-//------------------------------------------------methods for Fight
+
+//------------------------------------------------methods for Fighting
 Fighting* Fighting::Instance()
 {
 	static Fighting instance;
@@ -342,6 +325,7 @@ void Fighting::Execute(DrunkMiner* pMiner)
 
 void Fighting::Exit(DrunkMiner* pMiner)
 {
+	pMiner->GetSober();
 	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
 		pMiner->ID(),        //ID of sender
 		ent_Miner_Bob,            //ID of recipient
@@ -352,6 +336,13 @@ void Fighting::Exit(DrunkMiner* pMiner)
 
 bool Fighting::OnMessage(DrunkMiner* pMiner, const Telegram& msg)
 {
-	//send msg to global message handler
+	switch (msg.Msg)
+	{
+	case Msg_LeavingFight:
+		pMiner->GetDrunkFSM()->ChangeState(DigForNugget::Instance());
+		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Sorry for that, dude!", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
+		return true;
+	}//end switch
 	return false;
 }
