@@ -16,7 +16,6 @@ extern std::ofstream os;
 #endif
 
 //--------------------------------------methods for EnterMineAndDigForNugget
-
 EnterMineAndDigForNugget* EnterMineAndDigForNugget::Instance()
 {
 	static EnterMineAndDigForNugget instance;
@@ -42,7 +41,6 @@ void EnterMineAndDigForNugget::Enter(Miner* pMiner)
 	}
 }
 
-
 void EnterMineAndDigForNugget::Execute(Miner* pMiner)
 {
 	//if the miner is at the goldmine he digs for gold until he
@@ -67,7 +65,6 @@ void EnterMineAndDigForNugget::Execute(Miner* pMiner)
 	}
 }
 
-
 void EnterMineAndDigForNugget::Exit(Miner* pMiner)
 {
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Ah'm leavin' the goldmine with mah pockets full o' sweet gold", FOREGROUND_RED | FOREGROUND_INTENSITY);
@@ -77,16 +74,16 @@ bool EnterMineAndDigForNugget::OnMessage(Miner* pMiner, const Telegram& msg)
 {
 	switch (msg.Msg)
 	{
-	case Msg_AtTheMine:
+	case Msg_LetsFight:
 		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh man, there's Marley, I think he forgot his pickaxe, again!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh boy!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		//pMiner->GetFSM()->ChangeState(Fight::Instance());
 		return true;
 	}//end switch
 	return false; //send message to global message handler
 }
 
 //----------------------------------------methods for VisitBankAndDepositGold
-
 VisitBankAndDepositGold* VisitBankAndDepositGold::Instance()
 {
 	static VisitBankAndDepositGold instance;
@@ -104,7 +101,6 @@ void VisitBankAndDepositGold::Enter(Miner* pMiner)
 		pMiner->ChangeLocation(bank);
 	}
 }
-
 
 void VisitBankAndDepositGold::Execute(Miner* pMiner)
 {
@@ -136,7 +132,6 @@ void VisitBankAndDepositGold::Exit(Miner* pMiner)
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Leavin' the bank", FOREGROUND_RED | FOREGROUND_INTENSITY);
 }
 
-
 bool VisitBankAndDepositGold::OnMessage(Miner* pMiner, const Telegram& msg)
 {
 	//send msg to global message handler
@@ -144,7 +139,6 @@ bool VisitBankAndDepositGold::OnMessage(Miner* pMiner, const Telegram& msg)
 }
 
 //----------------------------------------methods for GoHomeAndSleepTilRested
-
 GoHomeAndSleepTilRested* GoHomeAndSleepTilRested::Instance()
 {
 	static GoHomeAndSleepTilRested instance;
@@ -212,7 +206,6 @@ bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Telegram& msg)
 }
 
 //------------------------------------------------methods for QuenchThirst
-
 QuenchThirst* QuenchThirst::Instance()
 {
 	static QuenchThirst instance;
@@ -260,26 +253,24 @@ void QuenchThirst::Exit(Miner* pMiner)
 
 bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-	//send msg to global message handler
 	switch (msg.Msg)
 	{
-	case Msg_AtTheSaloon:
+	case Msg_LetsFight:
 		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh man, there's Marley, I think he drank too much, again!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh boy!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		//pMiner->GetFSM()->ChangeState(Fight::Instance());
 		return true;
 	}//end switch
 	return false; //send message to global message handler
 }
 
 //------------------------------------------------------------------------EatStew
-
 EatStew* EatStew::Instance()
 {
 	static EatStew instance;
 
 	return &instance;
 }
-
 
 void EatStew::Enter(Miner* pMiner)
 {
@@ -297,7 +288,6 @@ void EatStew::Exit(Miner* pMiner)
 {
 	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Thankya li'lle lady. Ah better get back to whatever ah wuz doin'", FOREGROUND_RED | FOREGROUND_INTENSITY);
 }
-
 
 bool EatStew::OnMessage(Miner* pMiner, const Telegram& msg)
 {
@@ -350,6 +340,13 @@ void Fight::Exit(Miner* pMiner)
 
 bool Fight::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-	//send msg to global message handler
+	switch (msg.Msg)
+	{
+	case Msg_LeavingFight:
+		pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
+		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Sorry for that, dude!", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
+		return true;
+	}//end switch
 	return false;
 }
