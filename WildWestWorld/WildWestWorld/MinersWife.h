@@ -38,9 +38,9 @@ private:
 
 public:
 
-	MinersWife(int id) :m_Location(shack),
+	MinersWife(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 20) :m_Location(shack),
 		m_bCooking(false),
-		BaseGameEntity(id)
+		BaseGameEntity(id, texture, font, c, size)
 
 	{
 		//set up the state machine
