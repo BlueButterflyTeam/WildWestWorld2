@@ -77,7 +77,7 @@ bool EnterMineAndDigForNugget::OnMessage(Miner* pMiner, const Telegram& msg)
 	case Msg_LetsFight:
 		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh boy!", FOREGROUND_RED | FOREGROUND_INTENSITY);
-		//pMiner->GetFSM()->ChangeState(Fight::Instance());
+		pMiner->GetFSM()->ChangeState(Fight::Instance());
 		return true;
 	}//end switch
 	return false; //send message to global message handler
@@ -256,9 +256,11 @@ bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 	switch (msg.Msg)
 	{
 	case Msg_LetsFight:
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Just finishing mah drink!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		pMiner->BuyAndDrinkAWhiskey();
 		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh boy!", FOREGROUND_RED | FOREGROUND_INTENSITY);
-		//pMiner->GetFSM()->ChangeState(Fight::Instance());
+		pMiner->GetFSM()->ChangeState(Fight::Instance());
 		return true;
 	}//end switch
 	return false; //send message to global message handler
@@ -320,17 +322,19 @@ void Fight::Execute(Miner* pMiner)
 
 	if (pMiner->Thirsty())
 	{
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Too thirsty!", FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 		pMiner->GetFSM()->ChangeState(QuenchThirst::Instance());
 	}
 	if (pMiner->Fatigued())
 	{
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Too tired!", FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 		pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
 	}
 }
 
 void Fight::Exit(Miner* pMiner)
 {
-	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+	Dispatch->DispatchMessage(1, //time delay
 		pMiner->ID(),        //ID of sender
 		ent_DrunkMiner_Marley,            //ID of recipient
 		Msg_LeavingFight,   //the message
