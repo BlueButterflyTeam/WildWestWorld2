@@ -43,6 +43,8 @@ public:
 
 	virtual void Exit(DrunkMiner* miner);
 
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
+
 };
 
 //------------------------------------------------------------------------
@@ -70,6 +72,8 @@ public:
 	virtual void Execute(DrunkMiner* miner);
 
 	virtual void Exit(DrunkMiner* miner);
+
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -96,6 +100,8 @@ public:
 	virtual void Execute(DrunkMiner* miner);
 
 	virtual void Exit(DrunkMiner* miner);
+
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -123,6 +129,8 @@ public:
 	virtual void Execute(DrunkMiner* miner);
 
 	virtual void Exit(DrunkMiner* miner);
+
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -131,25 +139,27 @@ public:
 //	If another miner is here then, they'll start fighting, otherwise he'll
 //	just go to the mine drunk.
 //------------------------------------------------------------------------
-class Fight : public State<DrunkMiner>
+class Fighting : public State<DrunkMiner>
 {
 private:
 
-	Fight() {}
+	Fighting() {}
 
 	//copy ctor and assignment should be private
-	Fight(const Fight&);
-	Fight& operator=(const Fight&);
+	Fighting(const Fighting&);
+	Fighting& operator=(const Fighting&);
 
 public:
 
-	static Fight* Instance();
+	static Fighting* Instance();
 
 	virtual void Enter(DrunkMiner* miner);
 
 	virtual void Execute(DrunkMiner* miner);
 
 	virtual void Exit(DrunkMiner* miner);
+
+	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
 };
 
 

@@ -52,7 +52,7 @@ protected:
 
 public:
 
-	Miner(int id) :BaseGameEntity(id),
+	Miner(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 20) :BaseGameEntity(id, texture, font, c, size),
 		m_Location(shack),
 		m_iGoldCarried(0),
 		m_iMoneyInBank(0),
@@ -68,6 +68,9 @@ public:
 
 	//this must be implemented
 	virtual void Update();
+
+	//so must this
+	virtual bool  HandleMessage(const Telegram& msg);
 
 	StateMachine<Miner>*  GetFSM()const { return m_pStateMachine; }
 
@@ -92,9 +95,5 @@ public:
 	virtual void          BuyAndDrinkAWhiskey() { m_iThirst = 0; m_iMoneyInBank -= 2; }
 
 };
-
-
-
-
 
 #endif

@@ -13,6 +13,8 @@
 
 class MinersWife;
 
+
+
 //------------------------------------------------------------------------
 //
 
@@ -29,6 +31,7 @@ private:
 
 public:
 
+	//this is a singleton
 	static WifesGlobalState* Instance();
 
 	virtual void Enter(MinersWife* wife) {}
@@ -36,6 +39,8 @@ public:
 	virtual void Execute(MinersWife* wife);
 
 	virtual void Exit(MinersWife* wife) {}
+
+	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
 };
 
 
@@ -45,7 +50,6 @@ public:
 //------------------------------------------------------------------------
 class DoHouseWork : public State<MinersWife>
 {
-
 private:
 
 	DoHouseWork() {}
@@ -56,6 +60,7 @@ private:
 
 public:
 
+	//this is a singleton
 	static DoHouseWork* Instance();
 
 	virtual void Enter(MinersWife* wife);
@@ -63,6 +68,8 @@ public:
 	virtual void Execute(MinersWife* wife);
 
 	virtual void Exit(MinersWife* wife);
+
+	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
 
 };
 
@@ -84,6 +91,7 @@ private:
 
 public:
 
+	//this is a singleton
 	static VisitBathroom* Instance();
 
 	virtual void Enter(MinersWife* wife);
@@ -92,6 +100,37 @@ public:
 
 	virtual void Exit(MinersWife* wife);
 
+	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
+
+};
+
+
+//------------------------------------------------------------------------
+//
+
+//------------------------------------------------------------------------
+class CookStew : public State<MinersWife>
+{
+private:
+
+	CookStew() {}
+
+	//copy ctor and assignment should be private
+	CookStew(const CookStew&);
+	CookStew& operator=(const CookStew&);
+
+public:
+
+	//this is a singleton
+	static CookStew* Instance();
+
+	virtual void Enter(MinersWife* wife);
+
+	virtual void Execute(MinersWife* wife);
+
+	virtual void Exit(MinersWife* wife);
+
+	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
 };
 
 

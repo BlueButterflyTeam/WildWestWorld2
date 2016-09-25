@@ -13,6 +13,7 @@
 #include <conio.h>
 #include <iostream>
 #include <mutex>
+#include <string>
 
 static std::mutex mtx;
 
@@ -32,7 +33,6 @@ inline void writeOnConsole(std::string msg, WORD colors)
 	std::cout << "\n" << msg;
 
 	mtx.unlock();
-
 }
 
 inline void PressAnyKeyToContinue()

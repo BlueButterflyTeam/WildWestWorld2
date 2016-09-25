@@ -25,6 +25,15 @@
     <ClCompile Include="MinersWifeOwnedStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageDispatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CrudeTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrunkMinerOwnedStates.h">
@@ -64,6 +73,21 @@
       <Filter>Headers Files</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageDispatcher.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageTypes.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Telegram.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CrudeTimer.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
   </ItemGroup>
