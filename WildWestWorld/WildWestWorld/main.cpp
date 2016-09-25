@@ -35,6 +35,8 @@ void loop(BaseGameEntity* entity)
 	{
 		entity->Update();
 
+		Dispatch->DispatchDelayedMessages();
+
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
@@ -92,7 +94,7 @@ int main()
 	threads[2] = std::thread(loop, Marley);
 
 
-	sf::RenderWindow window(sf::VideoMode(1600, 900), "Wild West World");
+	//sf::RenderWindow window(sf::VideoMode(1600, 900), "Wild West World");
 
 	sf::Vector2f position(window.getSize().x/2, window.getSize().y/2);
 
@@ -114,15 +116,15 @@ int main()
 			}
 		}
 
-		window.clear(sf::Color::White);
+	//	window.clear(sf::Color::White);
 
 		mine.draw(window);
 		Bob->draw(window);
 		Marley->draw(window);
 		Elsa->draw(window);
 
-		window.display();
-	}
+	//	window.display();
+	//}
 
 	for (int i = 0; i < NB_NPC; i++)
 	{
