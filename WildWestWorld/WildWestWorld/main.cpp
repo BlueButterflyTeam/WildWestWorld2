@@ -24,7 +24,7 @@ void loop(BaseGameEntity* entity)
 	{
 		entity->Update();
 
-		//std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 
@@ -62,18 +62,18 @@ int main()
 	std::thread threads[NB_NPC];
 
 
-//	if (true)
-//	{
-//		threads[0] = std::thread(loop, Bob);
-//		threads[1] = std::thread(loop, Elsa);
-//		threads[2] = std::thread(loop, Marley);
-//
-//
-//		for (int i = 0; i < NB_NPC; i++)
-//		{
-//			threads[i].join();
-//		}
-//	}
+	if (true)
+	{
+		threads[0] = std::thread(loop, Bob);
+		threads[1] = std::thread(loop, Elsa);
+		threads[2] = std::thread(loop, Marley);
+
+
+		for (int i = 0; i < NB_NPC; i++)
+		{
+			threads[i].join();
+		}
+	}
 //	else
 //	{
 //		//run Bob and Elsa through a few Update calls

@@ -74,6 +74,12 @@ bool EnterMineAndDigForNugget::OnMessage(Miner* pMiner, const Telegram& msg)
 {
 	switch (msg.Msg)
 	{
+	case Msg_AtTheMine:
+		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Marley, that's my axe!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		pMiner->GetFSM()->ChangeState(Fight::Instance());
+		return true;
+
 	case Msg_LetsFight:
 		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Oh boy!", FOREGROUND_RED | FOREGROUND_INTENSITY);
@@ -255,6 +261,12 @@ bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 {
 	switch (msg.Msg)
 	{
+	case Msg_AtTheSaloon:
+		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Uh oh, it's Marley, seems drunk, again!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		pMiner->GetFSM()->ChangeState(Fight::Instance());
+		return true;
+
 	case Msg_LetsFight:
 		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Just finishing mah drink!", FOREGROUND_RED | FOREGROUND_INTENSITY);
 		pMiner->BuyAndDrinkAWhiskey();
@@ -334,7 +346,7 @@ void Fight::Execute(Miner* pMiner)
 
 void Fight::Exit(Miner* pMiner)
 {
-	Dispatch->DispatchMessage(1, //time delay
+	Dispatch->DispatchMessage(0.001, //time delay
 		pMiner->ID(),        //ID of sender
 		ent_DrunkMiner_Marley,            //ID of recipient
 		Msg_LeavingFight,   //the message
