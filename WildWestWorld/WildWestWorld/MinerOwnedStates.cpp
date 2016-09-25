@@ -330,23 +330,23 @@ void Fight::Execute(Miner* pMiner)
 {
 	pMiner->IncreaseFatigue();
 
-	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Am not gonna loose this fight!", FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Am not gonna loose this fight!", FOREGROUND_RED | FOREGROUND_INTENSITY);
 
 	if (pMiner->Thirsty())
 	{
-		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Too thirsty!", FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Too thirsty!", FOREGROUND_RED | FOREGROUND_INTENSITY);
 		pMiner->GetFSM()->ChangeState(QuenchThirst::Instance());
 	}
 	if (pMiner->Fatigued())
 	{
-		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Too tired!", FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Too tired!", FOREGROUND_RED | FOREGROUND_INTENSITY);
 		pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
 	}
 }
 
 void Fight::Exit(Miner* pMiner)
 {
-	Dispatch->DispatchMessage(0.001, //time delay
+	Dispatch->DispatchMessage(0.1, //time delay
 		pMiner->ID(),        //ID of sender
 		ent_DrunkMiner_Marley,            //ID of recipient
 		Msg_LeavingFight,   //the message
@@ -361,7 +361,7 @@ bool Fight::OnMessage(Miner* pMiner, const Telegram& msg)
 	case Msg_LeavingFight:
 		pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 		writeOnConsole("Message handled by " + GetNameOfEntity(pMiner->ID()) + " at time: " + std::to_string(Clock->GetCurrentTime()), BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Sorry for that, dude!", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
+		writeOnConsole(GetNameOfEntity(pMiner->ID()) + ": Sorry for that, dude!", FOREGROUND_RED | FOREGROUND_INTENSITY);
 		return true;
 	}//end switch
 	return false;

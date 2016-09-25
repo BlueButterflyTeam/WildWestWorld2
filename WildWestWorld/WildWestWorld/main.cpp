@@ -24,6 +24,8 @@ void loop(BaseGameEntity* entity)
 	{
 		entity->Update();
 
+		Dispatch->DispatchDelayedMessages();
+
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
@@ -90,40 +92,40 @@ int main()
 //		}
 //	}
 //
-//	//wait for a keypress before exiting
-//	PressAnyKeyToContinue();
+	//wait for a keypress before exiting
+	PressAnyKeyToContinue();
 
-	sf::RenderWindow window(sf::VideoMode(1600, 900), "Wild West World");
-
-
-	sf::Text text, t2 = Bob->getMessage();
-
-	sf::Vector2f position(window.getSize().x/2, window.getSize().y/2);
-
-	Bob->setPosition(position);
-	Bob->scale(sf::Vector2f(0.5f, 0.5f));
-
-	Bob->setMessage("Test");
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-
-		window.clear(sf::Color::White);
+	//sf::RenderWindow window(sf::VideoMode(1600, 900), "Wild West World");
 
 
-		//window.draw(Bob->getSprite());
-		//window.draw(Bob->getMessage());
-		Bob->draw(window);
+	//sf::Text text, t2 = Bob->getMessage();
 
-		window.display();
-	}
+	//sf::Vector2f position(window.getSize().x/2, window.getSize().y/2);
+
+	//Bob->setPosition(position);
+	//Bob->scale(sf::Vector2f(0.5f, 0.5f));
+
+	//Bob->setMessage("Test");
+
+	//while (window.isOpen())
+	//{
+	//	sf::Event event;
+
+	//	while (window.pollEvent(event))
+	//	{
+	//		if (event.type == sf::Event::Closed)
+	//			window.close();
+	//	}
+
+	//	window.clear(sf::Color::White);
+
+
+	//	//window.draw(Bob->getSprite());
+	//	//window.draw(Bob->getMessage());
+	//	Bob->draw(window);
+
+	//	window.display();
+	//}
 
 	return 0;
 }

@@ -331,7 +331,7 @@ void Fighting::Execute(DrunkMiner* pMiner)
 void Fighting::Exit(DrunkMiner* pMiner)
 {
 	pMiner->GetSober();
-	Dispatch->DispatchMessage(0.001, //time delay
+	Dispatch->DispatchMessage(0.1, //time delay
 		pMiner->ID(),        //ID of sender
 		ent_Miner_Bob,            //ID of recipient
 		Msg_LeavingFight,   //the message
