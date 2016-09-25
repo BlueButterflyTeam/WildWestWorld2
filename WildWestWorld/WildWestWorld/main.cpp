@@ -55,9 +55,9 @@ int main()
 
 
 	sf::Texture textures[3];
-	if (!textures[bob].loadFromFile("../sprites/Bob.png"))
+	if (!textures[bob].loadFromFile("../sprites/bob.png"))
 		return -1;
-	if (!textures[elsa].loadFromFile("../sprites/Elsa.jpg"))
+	if (!textures[elsa].loadFromFile("../sprites/elsa.png"))
 		return -1;
 	if (!textures[mine].loadFromFile("../sprites/mine.jpg"))
 		return -1;
@@ -69,15 +69,15 @@ int main()
 	worldMap[goldmine] = &mine;
 
 	//create a miner
-	Miner* Bob = new Miner(ent_Miner_Bob, textures[0], font);
+	Miner* Bob = new Miner(ent_Miner_Bob, textures[bob], font);
 	Bob->scale(sf::Vector2f(0.2f, 0.2f));
 
 	//create his wife
-	MinersWife* Elsa = new MinersWife(ent_Elsa, textures[1], font);
-	Elsa->scale(sf::Vector2f(0.5f, 0.5f));
+	MinersWife* Elsa = new MinersWife(ent_Elsa, textures[elsa], font);
+	Elsa->scale(sf::Vector2f(0.1f, 0.1f));
 
 	//create a drunk miner
-	DrunkMiner* Marley = new DrunkMiner(ent_DrunkMiner_Marley, textures[0], font);
+	DrunkMiner* Marley = new DrunkMiner(ent_DrunkMiner_Marley, textures[bob], font);
 	Marley->setSpriteColor(sf::Color(156, 39, 176)); 
 	Marley->scale(sf::Vector2f(0.2f, 0.2f));
 
@@ -94,7 +94,7 @@ int main()
 	threads[2] = std::thread(loop, Marley);
 
 
-	//sf::RenderWindow window(sf::VideoMode(1600, 900), "Wild West World");
+	sf::RenderWindow window(sf::VideoMode(1600, 900), "Wild West World");
 
 	sf::Vector2f position(window.getSize().x/2, window.getSize().y/2);
 
@@ -116,15 +116,15 @@ int main()
 			}
 		}
 
-	//	window.clear(sf::Color::White);
+		window.clear(sf::Color::White);
 
 		mine.draw(window);
 		Bob->draw(window);
 		Marley->draw(window);
 		Elsa->draw(window);
 
-	//	window.display();
-	//}
+		window.display();
+	}
 
 	for (int i = 0; i < NB_NPC; i++)
 	{
