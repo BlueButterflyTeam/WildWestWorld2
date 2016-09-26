@@ -62,7 +62,7 @@ public:
 
 	int           ID()const { return m_ID; }
 
-	void setMessage(std::string msg) { this->message.setString(msg); }
+	void setMessage(std::string msg);
 	void setFont(sf::Font& font) { this->message.setFont(font); }
 	void setTextColor(sf::Color c) { this->message.setFillColor(c); }
 	void setTextSize(unsigned int size) { this->message.setCharacterSize(size); }

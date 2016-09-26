@@ -24,9 +24,12 @@ std::map <int, Location*> worldMap;
 
 enum textures
 {
-	bob,
-	elsa,
-	mine
+	t_bob,
+	t_elsa,
+	t_mine,
+	t_bank,
+	t_house,
+	t_saloon
 };
 
 void loop(BaseGameEntity* entity)
@@ -54,30 +57,51 @@ int main()
 		return -1;
 
 
-	sf::Texture textures[3];
-	if (!textures[bob].loadFromFile("../sprites/bob.png"))
+	sf::Texture textures[6];
+	if (!textures[t_bob].loadFromFile("../sprites/bob.png"))
 		return -1;
-	if (!textures[elsa].loadFromFile("../sprites/elsa.png"))
+	if (!textures[t_elsa].loadFromFile("../sprites/elsa.png"))
 		return -1;
-	if (!textures[mine].loadFromFile("../sprites/mine.jpg"))
+	if (!textures[t_mine].loadFromFile("../sprites/mine.jpg"))
+		return -1;
+	if (!textures[t_bank].loadFromFile("../sprites/bank.png"))
+		return -1;
+	if (!textures[t_house].loadFromFile("../sprites/house.png"))
+		return -1;
+	if (!textures[t_saloon].loadFromFile("../sprites/saloon.png"))
 		return -1;
 
-	Location mine(textures[mine], font, "Mine");
-	mine.setPosition(200, 200);
-	mine.scale(sf::Vector2f(0.5f, 0.5f));
+	Location m_mine(textures[t_mine], font, "Mine");
+	m_mine.setPosition(200, 100);
+	m_mine.scale(sf::Vector2f(0.5f, 0.5f));
 
-	worldMap[goldmine] = &mine;
+	Location m_bank(textures[t_bank], font, "Bank");
+	m_bank.setPosition(400, 100);
+	m_bank.scale(sf::Vector2f(0.25f, 0.25f));
+
+	Location m_house(textures[t_house], font, "House");
+	m_house.setPosition(600, 100);
+	m_house.scale(sf::Vector2f(0.4f, 0.4f));
+
+	Location m_saloon(textures[t_saloon], font, "Saloon");
+	m_saloon.setPosition(800, 100);
+	m_saloon.scale(sf::Vector2f(0.17f, 0.17f));
+
+	worldMap[goldmine] = &m_mine;
+	worldMap[bank] = &m_bank;
+	worldMap[shack] = &m_house;
+	worldMap[saloon] = &m_saloon;
 
 	//create a miner
-	Miner* Bob = new Miner(ent_Miner_Bob, textures[bob], font);
+	Miner* Bob = new Miner(ent_Miner_Bob, textures[t_bob], font);
 	Bob->scale(sf::Vector2f(0.2f, 0.2f));
 
 	//create his wife
-	MinersWife* Elsa = new MinersWife(ent_Elsa, textures[elsa], font);
+	MinersWife* Elsa = new MinersWife(ent_Elsa, textures[t_elsa], font);
 	Elsa->scale(sf::Vector2f(0.1f, 0.1f));
 
 	//create a drunk miner
-	DrunkMiner* Marley = new DrunkMiner(ent_DrunkMiner_Marley, textures[bob], font);
+	DrunkMiner* Marley = new DrunkMiner(ent_DrunkMiner_Marley, textures[t_bob], font);
 	Marley->setSpriteColor(sf::Color(156, 39, 176)); 
 	Marley->scale(sf::Vector2f(0.2f, 0.2f));
 
@@ -118,7 +142,11 @@ int main()
 
 		window.clear(sf::Color::White);
 
-		mine.draw(window);
+		for (auto it = worldMap.begin(); it != worldMap.end(); it++)
+		{
+			it->second->draw(window);
+		}
+		
 		Bob->draw(window);
 		Marley->draw(window);
 		Elsa->draw(window);
