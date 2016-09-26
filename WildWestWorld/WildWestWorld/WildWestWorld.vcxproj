@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseGameEntity.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="CrudeTimer.h" />
     <ClInclude Include="DrunkMiner.h" />
