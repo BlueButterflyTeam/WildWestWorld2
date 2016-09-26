@@ -1,11 +1,12 @@
 #include "BaseGameEntity.h"
 #include <cassert>
-
-
+#include <sstream>
+#include <vector>
 
 int BaseGameEntity::m_iNextValidID = 0;
 
-
+void split(const std::string &s, char delim, std::vector<std::string> &elems);
+std::vector<std::string> split(const std::string &s, char delim);
 
 //----------------------------- SetID -----------------------------------------
 //
@@ -26,5 +27,44 @@ void BaseGameEntity::SetID(int val)
 
 void BaseGameEntity::setMessage(std::string msg)
 {
-	this->message.setString(this->message.getString() + "\n" + msg);
+	std::string tmp = this->message.getString(), last, middle;
+	std::vector<std::string> str = split(tmp, '\n');
+
+	tmp.clear();
+
+	if (!str.empty())
+	{
+		auto it = str.end();
+		
+		it--;
+		middle = *it;
+
+		if(str.size() > 1)
+		{
+			it--;
+			last = *it;
+		}
+	}
+	
+	tmp = last + "\n" + middle + "\n" + msg;
+
+	this->message.setString(tmp);
+}
+
+void split(const std::string &s, char delim, std::vector<std::string> &elems)
+{
+	std::stringstream ss;
+	ss.str(s);
+	std::string item;
+	while (getline(ss, item, delim)) {
+		elems.push_back(item);
+	}
+}
+
+
+std::vector<std::string> split(const std::string &s, char delim)
+{
+	std::vector<std::string> elems;
+	split(s, delim, elems);
+	return elems;
 }

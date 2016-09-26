@@ -38,7 +38,7 @@ private:
 
 public:
 
-	MinersWife(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 20) :m_Location(shack),
+	MinersWife(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 15) :m_Location(shack),
 		m_bCooking(false),
 		BaseGameEntity(id, texture, font, c, size)
 

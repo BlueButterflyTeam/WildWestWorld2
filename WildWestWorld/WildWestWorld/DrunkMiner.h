@@ -23,7 +23,7 @@ private:
 	StateMachine<DrunkMiner>* m_pDrunkFSM;
 
 public:
-	DrunkMiner(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 20) : Miner(id, texture, font, c, size)
+	DrunkMiner(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 15) : Miner(id, texture, font, c, size)
 	{
 		m_pDrunkFSM = new StateMachine<DrunkMiner>(this);
 		m_pDrunkFSM->SetCurrentState(DigForNugget::Instance());

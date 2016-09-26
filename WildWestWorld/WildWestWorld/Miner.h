@@ -52,7 +52,7 @@ protected:
 
 public:
 
-	Miner(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 20) :BaseGameEntity(id, texture, font, c, size),
+	Miner(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 15) :BaseGameEntity(id, texture, font, c, size),
 		m_Location(shack),
 		m_iGoldCarried(0),
 		m_iMoneyInBank(0),
