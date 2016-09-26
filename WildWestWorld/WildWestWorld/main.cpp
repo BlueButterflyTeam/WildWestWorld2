@@ -12,6 +12,7 @@
 #include "EntityNames.h"
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
+#include "Button.h"
 
 #include <SFML\Graphics.hpp>
 
@@ -19,7 +20,7 @@
 
 std::ofstream os;
 
-bool stopThread = false;
+bool stopThread = true;
 std::map <int, Location*> worldMap;
 
 enum textures
@@ -105,19 +106,18 @@ int main()
 	Marley->setSpriteColor(sf::Color(156, 39, 176)); 
 	Marley->scale(sf::Vector2f(0.2f, 0.2f));
 
-
 	//register them with the entity manager
 	EntityMgr->RegisterEntity(Bob);
 	EntityMgr->RegisterEntity(Elsa);
 	EntityMgr->RegisterEntity(Marley);
 
+	Button* buttons[2] = {
+		new Button(font, "Start", 100, 888),
+		new Button(font, "Pause", 300, 888)
+	};
+
 	std::thread threads[NB_NPC];
-
-	threads[0] = std::thread(loop, Bob);
-	threads[1] = std::thread(loop, Elsa);
-	threads[2] = std::thread(loop, Marley);
-
-
+	
 	sf::RenderWindow window(sf::VideoMode(1600, 900), "Wild West World");
 
 	sf::Vector2f position(window.getSize().x/2, window.getSize().y/2);
@@ -138,6 +138,30 @@ int main()
 				stopThread = true;
 				window.close();
 			}
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					if (buttons[0]->clicked(event.mouseButton.x, event.mouseButton.y))
+					{
+						stopThread = false;
+						threads[0] = std::thread(loop, Bob);
+						threads[1] = std::thread(loop, Elsa);
+						threads[2] = std::thread(loop, Marley);
+					}
+					if (buttons[1]->clicked(event.mouseButton.x, event.mouseButton.y))
+					{
+						if (!stopThread)
+						{
+							stopThread = true;
+							for (int i = 0; i < NB_NPC; i++)
+							{
+								threads[i].join();
+							}
+						}
+					}
+				}
+			}
 		}
 
 		window.clear(sf::Color::White);
@@ -151,6 +175,12 @@ int main()
 		Marley->draw(window);
 		Elsa->draw(window);
 
+		for (int i = 0; i < 2; i++)
+		{
+			buttons[i]->setTextColor(sf::Color::Black);
+			buttons[i]->draw(window);
+		}
+			 
 		window.display();
 	}
 
