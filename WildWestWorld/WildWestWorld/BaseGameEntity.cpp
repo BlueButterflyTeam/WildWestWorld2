@@ -23,3 +23,8 @@ void BaseGameEntity::SetID(int val)
 
 	m_iNextValidID = m_ID + 1;
 }
+
+void BaseGameEntity::setMessage(std::string msg)
+{
+	this->message.setString(this->message.getString() + "\n" + msg);
+}
