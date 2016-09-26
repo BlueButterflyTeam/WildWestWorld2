@@ -90,6 +90,9 @@
     <ClInclude Include="CrudeTimer.h">
       <Filter>Headers Files</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Headers Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers Files">
