@@ -67,6 +67,7 @@ public:
 	void setTextColor(sf::Color c) { this->message.setFillColor(c); }
 	void setTextSize(unsigned int size) { this->message.setCharacterSize(size); }
 	void scale(sf::Vector2f scale) { this->sprite.scale(scale); }
+	void setSpriteColor(sf::Color color) { this->sprite.setColor(color); }
 	sf::Text getMessage() { return this->message; }
 	sf::Sprite getSprite() { return this->sprite; }
 	void setPosition(float x, float y) { this->setPosition(sf::Vector2f(x, y)); }
