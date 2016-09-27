@@ -21,7 +21,7 @@ class DrunkMiner;
 //  state to QuenchThirst. If he is drunk and Bob is here, they'll pick
 //	up a fight.
 //------------------------------------------------------------------------
-class DigForNugget : public State<DrunkMiner>
+class DigForNugget : public State
 {
 private:
 
@@ -37,13 +37,13 @@ public:
 
 public:
 
-	virtual void Enter(DrunkMiner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(DrunkMiner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(DrunkMiner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 
 };
 
@@ -53,7 +53,7 @@ public:
 //  miner is subsequently wealthy enough he'll walk home, otherwise he'll
 //  keep going to get more gold
 //------------------------------------------------------------------------
-class GoToBankToSaveGold : public State<DrunkMiner>
+class GoToBankToSaveGold : public State
 {
 private:
 
@@ -67,13 +67,13 @@ public:
 
 	static GoToBankToSaveGold* Instance();
 
-	virtual void Enter(DrunkMiner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(DrunkMiner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(DrunkMiner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -81,7 +81,7 @@ public:
 //  miner will go home and sleep until his fatigue is decreased
 //  sufficiently
 //------------------------------------------------------------------------
-class HomeSweetHome : public State<DrunkMiner>
+class HomeSweetHome : public State
 {
 private:
 
@@ -95,13 +95,13 @@ public:
 
 	static HomeSweetHome* Instance();
 
-	virtual void Enter(DrunkMiner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(DrunkMiner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(DrunkMiner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -110,7 +110,7 @@ public:
 //	If another miner is here then, they'll start fighting, otherwise he'll
 //	just go to the mine drunk.
 //------------------------------------------------------------------------
-class Drink : public State<DrunkMiner>
+class Drink : public State
 {
 private:
 
@@ -124,13 +124,13 @@ public:
 
 	static Drink* Instance();
 
-	virtual void Enter(DrunkMiner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(DrunkMiner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(DrunkMiner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -139,7 +139,7 @@ public:
 //	If another miner is here then, they'll start fighting, otherwise he'll
 //	just go to the mine drunk.
 //------------------------------------------------------------------------
-class Fighting : public State<DrunkMiner>
+class Fighting : public State
 {
 private:
 
@@ -153,13 +153,13 @@ public:
 
 	static Fighting* Instance();
 
-	virtual void Enter(DrunkMiner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(DrunkMiner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(DrunkMiner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(DrunkMiner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 

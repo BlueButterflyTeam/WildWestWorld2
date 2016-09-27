@@ -19,7 +19,7 @@ class MinersWife;
 //
 
 //------------------------------------------------------------------------
-class WifesGlobalState : public State<MinersWife>
+class WifesGlobalState : public State
 {
 private:
 
@@ -34,13 +34,13 @@ public:
 	//this is a singleton
 	static WifesGlobalState* Instance();
 
-	virtual void Enter(MinersWife* wife) {}
+	virtual void Enter(BaseGameEntity* wife) {}
 
-	virtual void Execute(MinersWife* wife);
+	virtual void Execute(BaseGameEntity* wife);
 
-	virtual void Exit(MinersWife* wife) {}
+	virtual void Exit(BaseGameEntity* wife) {}
 
-	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* wife, const Telegram& msg);
 };
 
 
@@ -48,7 +48,7 @@ public:
 //
 
 //------------------------------------------------------------------------
-class DoHouseWork : public State<MinersWife>
+class DoHouseWork : public State
 {
 private:
 
@@ -63,13 +63,13 @@ public:
 	//this is a singleton
 	static DoHouseWork* Instance();
 
-	virtual void Enter(MinersWife* wife);
+	virtual void Enter(BaseGameEntity* wife);
 
-	virtual void Execute(MinersWife* wife);
+	virtual void Execute(BaseGameEntity* wife);
 
-	virtual void Exit(MinersWife* wife);
+	virtual void Exit(BaseGameEntity* wife);
 
-	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* wife, const Telegram& msg);
 
 };
 
@@ -79,7 +79,7 @@ public:
 //
 
 //------------------------------------------------------------------------
-class VisitBathroom : public State<MinersWife>
+class VisitBathroom : public State
 {
 private:
 
@@ -94,13 +94,13 @@ public:
 	//this is a singleton
 	static VisitBathroom* Instance();
 
-	virtual void Enter(MinersWife* wife);
+	virtual void Enter(BaseGameEntity* wife);
 
-	virtual void Execute(MinersWife* wife);
+	virtual void Execute(BaseGameEntity* wife);
 
-	virtual void Exit(MinersWife* wife);
+	virtual void Exit(BaseGameEntity* wife);
 
-	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* wife, const Telegram& msg);
 
 };
 
@@ -109,7 +109,7 @@ public:
 //
 
 //------------------------------------------------------------------------
-class CookStew : public State<MinersWife>
+class CookStew : public State
 {
 private:
 
@@ -124,13 +124,13 @@ public:
 	//this is a singleton
 	static CookStew* Instance();
 
-	virtual void Enter(MinersWife* wife);
+	virtual void Enter(BaseGameEntity* wife);
 
-	virtual void Execute(MinersWife* wife);
+	virtual void Execute(BaseGameEntity* wife);
 
-	virtual void Exit(MinersWife* wife);
+	virtual void Exit(BaseGameEntity* wife);
 
-	virtual bool OnMessage(MinersWife* wife, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* wife, const Telegram& msg);
 };
 
 

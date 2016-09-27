@@ -28,7 +28,7 @@ class MinersWife : public BaseGameEntity
 private:
 
 	//an instance of the state machine class
-	StateMachine<MinersWife>* m_pStateMachine;
+	StateMachine* m_pStateMachine;
 
 	location_type   m_Location;
 
@@ -44,7 +44,7 @@ public:
 
 	{
 		//set up the state machine
-		m_pStateMachine = new StateMachine<MinersWife>(this);
+		m_pStateMachine = new StateMachine(this);
 
 		m_pStateMachine->SetCurrentState(DoHouseWork::Instance());
 
@@ -60,7 +60,7 @@ public:
 	//so must this
 	virtual bool  HandleMessage(const Telegram& msg);
 
-	StateMachine<MinersWife>* GetFSM()const { return m_pStateMachine; }
+	StateMachine* GetFSM()const { return m_pStateMachine; }
 
 	//----------------------------------------------------accessors
 	location_type Location()const { return m_Location; }

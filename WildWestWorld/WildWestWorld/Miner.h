@@ -35,7 +35,7 @@ class Miner : public BaseGameEntity
 protected:
 
 	//an instance of the state machine class
-	StateMachine<Miner>*  m_pStateMachine;
+	StateMachine*  m_pStateMachine;
 
 	location_type         m_Location;
 
@@ -59,7 +59,7 @@ public:
 		m_iThirst(0),
 		m_iFatigue(0)
 	{
-		m_pStateMachine = new StateMachine<Miner>(this);
+		m_pStateMachine = new StateMachine(this);
 
 		m_pStateMachine->SetCurrentState(GoHomeAndSleepTilRested::Instance());
 	}
@@ -72,7 +72,7 @@ public:
 	//so must this
 	virtual bool  HandleMessage(const Telegram& msg);
 
-	StateMachine<Miner>*  GetFSM()const { return m_pStateMachine; }
+	StateMachine*  GetFSM()const { return m_pStateMachine; }
 
 
 	location_type Location()const { return m_Location; }

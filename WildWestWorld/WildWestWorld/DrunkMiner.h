@@ -20,18 +20,18 @@ class DrunkMiner : public Miner
 private:
 	bool m_bIsDrunk = false;
 
-	StateMachine<DrunkMiner>* m_pDrunkFSM;
+	//StateMachine* m_pDrunkFSM;
 
 public:
 	DrunkMiner(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 15) : Miner(id, texture, font, c, size)
 	{
-		m_pDrunkFSM = new StateMachine<DrunkMiner>(this);
-		m_pDrunkFSM->SetCurrentState(DigForNugget::Instance());
+		//m_pDrunkFSM = new StateMachine(this);
+		m_pStateMachine->SetCurrentState(DigForNugget::Instance());
 	}
 
 	~DrunkMiner()
 	{
-		delete m_pDrunkFSM;
+		//delete m_pDrunkFSM;
 	}
 
 	virtual void Update();
@@ -46,7 +46,7 @@ public:
 
 	void GetSober() { m_bIsDrunk = false; }
 
-	StateMachine<DrunkMiner>* GetDrunkFSM() const{ return m_pDrunkFSM; }
+	//StateMachine* GetDrunkFSM() const{ return m_pStateMachine; }
 };
 
 #endif DRUNK_MINER_H
