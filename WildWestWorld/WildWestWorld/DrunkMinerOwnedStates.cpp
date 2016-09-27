@@ -295,7 +295,7 @@ void Drink::Execute(BaseGameEntity* pMiner)
 
 	else
 	{
-		writeOnConsole("\nERROR!\nERROR!\nERROR!", FOREGROUND_RED | FOREGROUND_INTENSITY);
+		miner->GetFSM()->ChangeState(DigForNugget::Instance());
 	}
 }
 

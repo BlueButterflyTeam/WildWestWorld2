@@ -51,6 +51,11 @@ public:
 	{
 		return label.getGlobalBounds().contains(sf::Vector2f(x, y));
 	}
+
+	virtual void onClick()
+	{
+
+	}
 };
 
 #endif
