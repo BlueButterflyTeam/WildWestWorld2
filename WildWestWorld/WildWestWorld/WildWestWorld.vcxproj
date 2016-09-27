@@ -134,6 +134,7 @@
     <ClInclude Include="MinersWife.h" />
     <ClInclude Include="MinersWifeOwnedStates.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="StateButton.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Telegram.h" />
     <ClInclude Include="utils.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="MinerOwnedStates.cpp" />
     <ClCompile Include="MinersWife.cpp" />
     <ClCompile Include="MinersWifeOwnedStates.cpp" />
+    <ClCompile Include="StateButton.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -111,9 +111,21 @@ int main()
 	EntityMgr->RegisterEntity(Elsa);
 	EntityMgr->RegisterEntity(Marley);
 
-	Button* buttons[2] = {
-		new Button(font, "Start", 100, 888),
-		new Button(font, "Pause", 300, 888)
+	Button* buttons[14] = {
+		new Button(font, "Start", 700, 888),
+		new Button(font, "Pause", 900, 888),
+		new Button(font, "Bob", 10, 400),
+		new Button(font, "Marley", 1450, 400),
+		new Button(font, "Home", 10, 500),
+		new Button(font, "Mine", 10, 550),
+		new Button(font, "Saloon", 10, 600),
+		new Button(font, "Bank", 10, 650),
+		new Button(font, "Fighting", 10, 700),
+		new Button(font, "Home", 1450, 500),
+		new Button(font, "Mine", 1450, 550),
+		new Button(font, "Saloon", 1450, 600),
+		new Button(font, "Bank", 1450, 650),
+		new Button(font, "Fighting", 1450, 700),
 	};
 
 	std::thread threads[NB_NPC];
@@ -136,6 +148,10 @@ int main()
 			if (event.type == sf::Event::Closed)
 			{
 				stopThread = true;
+				for (int i = 0; i < NB_NPC; i++)
+				{
+					threads[i].join();
+				}
 				window.close();
 			}
 			if (event.type == sf::Event::MouseButtonPressed)
@@ -170,23 +186,23 @@ int main()
 		{
 			it->second->draw(window);
 		}
-		
+
 		Bob->draw(window);
 		Marley->draw(window);
 		Elsa->draw(window);
 
-		for (int i = 0; i < 2; i++)
+		for (int i = 3; i < 14; i++)
 		{
-			buttons[i]->setTextColor(sf::Color::Black);
+			buttons[i]->setTextColor(sf::Color::Magenta);
 			buttons[i]->draw(window);
 		}
-			 
+		for (int i = 0; i < 4; i++)
+		{
+			buttons[i]->setTextColor(sf::Color::Cyan);
+			buttons[i]->setTextSize(40);
+			buttons[i]->draw(window);
+		}
 		window.display();
-	}
-
-	for (int i = 0; i < NB_NPC; i++)
-	{
-		threads[i].join();
 	}
 
 	return 0;
