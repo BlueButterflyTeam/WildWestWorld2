@@ -3,7 +3,7 @@
 
 bool DrunkMiner::HandleMessage(const Telegram& msg)
 {
-	return m_pDrunkFSM->HandleMessage(msg);
+	return m_pStateMachine->HandleMessage(msg);
 }
 
 //-----------------------------------------------------------------------------
@@ -13,5 +13,5 @@ void DrunkMiner::Update()
 
 	m_iThirst += 1;
 
-	m_pDrunkFSM->Update();
+	m_pStateMachine->Update();
 }

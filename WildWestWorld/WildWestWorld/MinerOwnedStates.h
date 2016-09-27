@@ -24,7 +24,7 @@ struct Telegram;
 //  to VisitBankAndDepositGold. If he gets thirsty he'll change state
 //  to QuenchThirst
 //------------------------------------------------------------------------
-class EnterMineAndDigForNugget : public State<Miner>
+class EnterMineAndDigForNugget : public State
 {
 private:
 
@@ -40,13 +40,13 @@ public:
 
 public:
 
-	virtual void Enter(Miner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(Miner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(Miner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 
 };
 
@@ -56,7 +56,7 @@ public:
 //  miner is subsequently wealthy enough he'll walk home, otherwise he'll
 //  keep going to get more gold
 //------------------------------------------------------------------------
-class VisitBankAndDepositGold : public State<Miner>
+class VisitBankAndDepositGold : public State
 {
 private:
 
@@ -70,13 +70,13 @@ public:
 
 	static VisitBankAndDepositGold* Instance();
 
-	virtual void Enter(Miner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(Miner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(Miner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 
@@ -85,7 +85,7 @@ public:
 //  miner will go home and sleep until his fatigue is decreased
 //  sufficiently
 //------------------------------------------------------------------------
-class GoHomeAndSleepTilRested : public State<Miner>
+class GoHomeAndSleepTilRested : public State
 {
 private:
 
@@ -99,20 +99,20 @@ public:
 
 	static GoHomeAndSleepTilRested* Instance();
 
-	virtual void Enter(Miner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(Miner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(Miner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 
 //------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------
-class QuenchThirst : public State<Miner>
+class QuenchThirst : public State
 {
 private:
 
@@ -126,13 +126,13 @@ public:
 
 	static QuenchThirst* Instance();
 
-	virtual void Enter(Miner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(Miner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(Miner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 
@@ -141,7 +141,7 @@ public:
 //  this is implemented as a state blip. The miner eats the stew, gives
 //  Elsa some compliments and then returns to his previous state
 //------------------------------------------------------------------------
-class EatStew : public State<Miner>
+class EatStew : public State
 {
 private:
 
@@ -156,13 +156,13 @@ public:
 	//this is a singleton
 	static EatStew* Instance();
 
-	virtual void Enter(Miner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(Miner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(Miner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 //------------------------------------------------------------------------
@@ -171,7 +171,7 @@ public:
 //	If another miner is here then, they'll start fighting, otherwise he'll
 //	just go to the mine drunk.
 //------------------------------------------------------------------------
-class Fight : public State<Miner>
+class Fight : public State
 {
 private:
 
@@ -185,13 +185,13 @@ public:
 
 	static Fight* Instance();
 
-	virtual void Enter(Miner* miner);
+	virtual void Enter(BaseGameEntity* miner);
 
-	virtual void Execute(Miner* miner);
+	virtual void Execute(BaseGameEntity* miner);
 
-	virtual void Exit(Miner* miner);
+	virtual void Exit(BaseGameEntity* miner);
 
-	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+	virtual bool OnMessage(BaseGameEntity* agent, const Telegram& msg);
 };
 
 #endif

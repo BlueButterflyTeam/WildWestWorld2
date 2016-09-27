@@ -18,26 +18,25 @@
 #include "Telegram.h"
 
 
-template <class entity_type>
 class StateMachine
 {
 private:
 
 	//a pointer to the agent that owns this instance
-	entity_type*          m_pOwner;
+	BaseGameEntity* m_pOwner;
 
-	State<entity_type>*   m_pCurrentState;
+	State* m_pCurrentState;
 
 	//a record of the last state the agent was in
-	State<entity_type>*   m_pPreviousState;
+	State* m_pPreviousState;
 
 	//this is called every time the FSM is updated
-	State<entity_type>*   m_pGlobalState;
+	State* m_pGlobalState;
 
 
 public:
 
-	StateMachine(entity_type* owner) :m_pOwner(owner),
+	StateMachine(BaseGameEntity* owner) :m_pOwner(owner),
 		m_pCurrentState(NULL),
 		m_pPreviousState(NULL),
 		m_pGlobalState(NULL)
@@ -46,9 +45,9 @@ public:
 	virtual ~StateMachine() {}
 
 	//use these methods to initialize the FSM
-	void SetCurrentState(State<entity_type>* s) { m_pCurrentState = s; }
-	void SetGlobalState(State<entity_type>* s) { m_pGlobalState = s; }
-	void SetPreviousState(State<entity_type>* s) { m_pPreviousState = s; }
+	void SetCurrentState(State* s) { m_pCurrentState = s; }
+	void SetGlobalState(State* s) { m_pGlobalState = s; }
+	void SetPreviousState(State* s) { m_pPreviousState = s; }
 
 	//call this to update the FSM
 	void  Update()const
@@ -80,7 +79,7 @@ public:
 	}
 
 	//change to a new state
-	void  ChangeState(State<entity_type>* pNewState)
+	void  ChangeState(State* pNewState)
 	{
 		assert(pNewState && "<StateMachine::ChangeState>:trying to assign null state to current");
 
@@ -105,15 +104,15 @@ public:
 
 	//returns true if the current state's type is equal to the type of the
 	//class passed as a parameter. 
-	bool  isInState(const State<entity_type>& st)const
+	bool  isInState(const State& st)const
 	{
 		if (typeid(*m_pCurrentState) == typeid(st)) return true;
 		return false;
 	}
 
-	State<entity_type>*  CurrentState()  const { return m_pCurrentState; }
-	State<entity_type>*  GlobalState()   const { return m_pGlobalState; }
-	State<entity_type>*  PreviousState() const { return m_pPreviousState; }
+	State*  CurrentState()  const { return m_pCurrentState; }
+	State*  GlobalState()   const { return m_pGlobalState; }
+	State*  PreviousState() const { return m_pPreviousState; }
 
 	//only ever used during debugging to grab the name of the current state
 	std::string         GetNameOfCurrentState()const

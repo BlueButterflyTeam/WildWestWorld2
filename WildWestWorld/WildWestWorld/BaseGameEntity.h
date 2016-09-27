@@ -41,12 +41,12 @@ private:
 
 public:
 
-	BaseGameEntity(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 20)
+	BaseGameEntity(int id, sf::Texture& texture, sf::Font& font, sf::Color c = sf::Color::Black, unsigned int size = 15)
 	{
 		SetID(id);
 
 		setTextOption(font, c, size);
-		setMessage("Hello world");
+		this->message.setString("Hello world");
 
 		this->sprite.setTexture(texture);
 	}
@@ -82,7 +82,7 @@ public:
 	void setPosition(sf::Vector2f pos)
 	{
 		this->sprite.setPosition(pos);
-		this->message.setPosition(pos.x, pos.y - this->message.getCharacterSize() - 5);
+		this->message.setPosition(pos.x, pos.y + this->sprite.getGlobalBounds().height + 5);
 	}
 
 	void draw(sf::RenderWindow& window)
