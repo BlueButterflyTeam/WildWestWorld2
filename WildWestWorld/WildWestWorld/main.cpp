@@ -77,15 +77,15 @@ int main()
 	m_mine.scale(sf::Vector2f(0.5f, 0.5f));
 
 	Location m_bank(textures[t_bank], font, "Bank");
-	m_bank.setPosition(400, 100);
+	m_bank.setPosition(550, 100);
 	m_bank.scale(sf::Vector2f(0.25f, 0.25f));
 
 	Location m_house(textures[t_house], font, "House");
-	m_house.setPosition(600, 100);
+	m_house.setPosition(900, 100);
 	m_house.scale(sf::Vector2f(0.4f, 0.4f));
 
 	Location m_saloon(textures[t_saloon], font, "Saloon");
-	m_saloon.setPosition(800, 100);
+	m_saloon.setPosition(1200, 100);
 	m_saloon.scale(sf::Vector2f(0.17f, 0.17f));
 
 	worldMap[goldmine] = &m_mine;
@@ -112,8 +112,8 @@ int main()
 	EntityMgr->RegisterEntity(Marley);
 
 	Button* buttons[14] = {
-		new Button(font, "Start", 700, 888),
-		new Button(font, "Pause", 900, 888),
+		new Button(font, "Start", 700, 875),
+		new Button(font, "Pause", 900, 875),
 		new Button(font, "Bob", 10, 400),
 		new Button(font, "Marley", 1450, 400),
 		new StateButton(Bob, GoHomeAndSleepTilRested::Instance(), font, "Home", 10, 500),
@@ -128,15 +128,23 @@ int main()
 		new StateButton(Marley, Fighting::Instance(), font, "Fighting", 1450, 700),
 	};
 
+	for (int i = 3; i < 14; i++)
+	{
+		buttons[i]->setTextColor(sf::Color::Black);
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		buttons[i]->setTextColor(sf::Color::Blue);
+		buttons[i]->setTextSize(40);
+	}
+
 	std::thread threads[NB_NPC];
 	
 	sf::RenderWindow window(sf::VideoMode(1600, 900), "Wild West World");
 
-	sf::Vector2f position(window.getSize().x/2, window.getSize().y/2);
-
-	Bob->setPosition(position);
-	Elsa->setPosition(sf::Vector2f(100, window.getSize().y / 2));
-	Marley->setPosition(400, window.getSize().y / 2);
+	Bob->setPosition(150, window.getSize().y / 2);
+	Elsa->setPosition(600, window.getSize().y / 2);
+	Marley->setPosition(1000, window.getSize().y / 2);
 
 	while (window.isOpen())
 	{
@@ -203,17 +211,11 @@ int main()
 		Marley->draw(window);
 		Elsa->draw(window);
 
-		for (int i = 3; i < 14; i++)
+		for (int i = 0; i < 14; i++)
 		{
-			buttons[i]->setTextColor(sf::Color::Magenta);
 			buttons[i]->draw(window);
 		}
-		for (int i = 0; i < 4; i++)
-		{
-			buttons[i]->setTextColor(sf::Color::Cyan);
-			buttons[i]->setTextSize(40);
-			buttons[i]->draw(window);
-		}
+		
 		window.display();
 	}
 
