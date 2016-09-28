@@ -3,24 +3,26 @@
 
 #include "Button.h"
 #include "State.h"
+#include "Miner.h"
 
-template <class entity_type>
 class StateButton : public Button
 {
 private :
-	State state;
+	State* state;
 	Miner* miner;
 
 public :
-	StateButton(Miner* miner, State state, sf::Font& font, std::string label = "Button", float x = 0, float y = 0) : Button (font, label, x, y)
+	StateButton(Miner* miner, State* state, sf::Font& font, std::string label = "Button", float x = 0, float y = 0) : Button (font, label, x, y)
 	{
 		this->state = state;
 		this->miner = miner;
 	}
 
+	~StateButton() {}
+
 	void onClick()
 	{
-		
+		miner->GetFSM()->ChangeState(state);
 	}
 };
 

@@ -13,6 +13,7 @@
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
 #include "Button.h"
+#include "StateButton.h"
 
 #include <SFML\Graphics.hpp>
 
@@ -115,16 +116,16 @@ int main()
 		new Button(font, "Pause", 900, 888),
 		new Button(font, "Bob", 10, 400),
 		new Button(font, "Marley", 1450, 400),
-		new Button(font, "Home", 10, 500),
-		new Button(font, "Mine", 10, 550),
-		new Button(font, "Saloon", 10, 600),
-		new Button(font, "Bank", 10, 650),
-		new Button(font, "Fighting", 10, 700),
-		new Button(font, "Home", 1450, 500),
-		new Button(font, "Mine", 1450, 550),
-		new Button(font, "Saloon", 1450, 600),
-		new Button(font, "Bank", 1450, 650),
-		new Button(font, "Fighting", 1450, 700),
+		new StateButton(Bob, GoHomeAndSleepTilRested::Instance(), font, "Home", 10, 500),
+		new StateButton(Bob, EnterMineAndDigForNugget::Instance(), font, "Mine", 10, 550),
+		new StateButton(Bob, QuenchThirst::Instance(), font, "Saloon", 10, 600),
+		new StateButton(Bob, VisitBankAndDepositGold::Instance(), font, "Bank", 10, 650),
+		new StateButton(Bob, Fight::Instance(), font, "Fighting", 10, 700),
+		new StateButton(Marley, HomeSweetHome::Instance(),font, "Home", 1450, 500),
+		new StateButton(Marley, DigForNugget::Instance(), font, "Mine", 1450, 550),
+		new StateButton(Marley, Drink::Instance(), font, "Saloon", 1450, 600),
+		new StateButton(Marley, GoToBankToSaveGold::Instance(), font, "Bank", 1450, 650),
+		new StateButton(Marley, Fighting::Instance(), font, "Fighting", 1450, 700),
 	};
 
 	std::thread threads[NB_NPC];
@@ -159,6 +160,13 @@ int main()
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
+					for (int i = 3; i < 14; i++)
+					{
+						if (buttons[i]->clicked(event.mouseButton.x, event.mouseButton.y))
+						{
+							buttons[i]->onClick();
+						}
+					}
 					if (buttons[0]->clicked(event.mouseButton.x, event.mouseButton.y))
 					{
 						if (stopThread)
