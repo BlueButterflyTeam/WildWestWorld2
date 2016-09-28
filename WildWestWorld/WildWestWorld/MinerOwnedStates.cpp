@@ -29,7 +29,7 @@ void EnterMineAndDigForNugget::Enter(BaseGameEntity* pMiner)
 
 	//if the miner is not already located at the goldmine, he must
 	//change location to the gold mine
-	if (miner->Location() != goldmine)
+	if (miner->getLocation() != goldmine)
 	{
 		writeOnConsole(GetNameOfEntity(miner->ID()) + ": Walkin' to the goldmine", FOREGROUND_RED | FOREGROUND_INTENSITY);
 		miner->setMessage("Walking to the goldmine");
@@ -111,7 +111,7 @@ void VisitBankAndDepositGold::Enter(BaseGameEntity* pMiner)
 	Miner* miner = (Miner*)pMiner;
 
 	//on entry the miner makes sure he is located at the bank
-	if (miner->Location() != bank)
+	if (miner->getLocation() != bank)
 	{
 		writeOnConsole(GetNameOfEntity(miner->ID()) + ": Goin' to the bank. Yes siree", FOREGROUND_RED | FOREGROUND_INTENSITY);
 		miner->setMessage("Goin' to the bank. Yes siree");
@@ -173,7 +173,7 @@ void GoHomeAndSleepTilRested::Enter(BaseGameEntity* pMiner)
 {
 	Miner* miner = (Miner*)pMiner;
 
-	if (miner->Location() != shack)
+	if (miner->getLocation() != shack)
 	{
 		writeOnConsole(GetNameOfEntity(miner->ID()) + ": Walkin' home", FOREGROUND_RED | FOREGROUND_INTENSITY);
 		miner->setMessage("Walkin' home");
@@ -250,7 +250,7 @@ void QuenchThirst::Enter(BaseGameEntity* pMiner)
 {
 	Miner* miner = (Miner*)pMiner;
 
-	if (miner->Location() != saloon)
+	if (miner->getLocation() != saloon)
 	{
 		miner->ChangeLocation(saloon);
 

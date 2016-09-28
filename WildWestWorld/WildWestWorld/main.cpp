@@ -21,7 +21,6 @@
 std::ofstream os;
 
 bool stopThread = true;
-std::map <int, Location*> worldMap;
 
 enum textures
 {
@@ -135,9 +134,8 @@ int main()
 	sf::Vector2f position(window.getSize().x/2, window.getSize().y/2);
 
 	Bob->setPosition(position);
-	Bob->setMessage("Test");
-
-	Elsa->setPosition(sf::Vector2f(100, 0));
+	Elsa->setPosition(sf::Vector2f(100, window.getSize().y / 2));
+	Marley->setPosition(400, window.getSize().y / 2);
 
 	while (window.isOpen())
 	{
@@ -147,10 +145,13 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 			{
-				stopThread = true;
-				for (int i = 0; i < NB_NPC; i++)
+				if (!stopThread)
 				{
-					threads[i].join();
+					stopThread = true;
+					for (int i = 0; i < NB_NPC; i++)
+					{
+						threads[i].join();
+					}
 				}
 				window.close();
 			}
@@ -160,10 +161,13 @@ int main()
 				{
 					if (buttons[0]->clicked(event.mouseButton.x, event.mouseButton.y))
 					{
-						stopThread = false;
-						threads[0] = std::thread(loop, Bob);
-						threads[1] = std::thread(loop, Elsa);
-						threads[2] = std::thread(loop, Marley);
+						if (stopThread)
+						{
+							stopThread = false;
+							threads[0] = std::thread(loop, Bob);
+							threads[1] = std::thread(loop, Elsa);
+							threads[2] = std::thread(loop, Marley);
+						}
 					}
 					if (buttons[1]->clicked(event.mouseButton.x, event.mouseButton.y))
 					{

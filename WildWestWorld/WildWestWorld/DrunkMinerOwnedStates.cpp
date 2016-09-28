@@ -32,7 +32,7 @@ void DigForNugget::Enter(BaseGameEntity* pMiner)
 
 	//if the miner is not already located at the goldmine, he must
 	//change location to the gold mine
-	if (miner->Location() != goldmine)
+	if (miner->getLocation() != goldmine)
 	{
 		writeOnConsole(GetNameOfEntity(miner->ID()) + ": Walkin' to the goldmine", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
 		miner->setMessage("Walkin' to the goldmine");
@@ -130,7 +130,7 @@ void GoToBankToSaveGold::Enter(BaseGameEntity* pMiner)
 	DrunkMiner* miner = (DrunkMiner*)pMiner;
 
 	//on entry the miner makes sure he is located at the bank
-	if (miner->Location() != bank)
+	if (miner->getLocation() != bank)
 	{
 		writeOnConsole(GetNameOfEntity(miner->ID()) + ": Goin' to the bank. Yes siree", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
 		miner->setMessage("Goin' to the bank. Yes siree");
@@ -194,7 +194,7 @@ void HomeSweetHome::Enter(BaseGameEntity* pMiner)
 	DrunkMiner* miner = (DrunkMiner*)pMiner;
 
 	miner->GetSober();
-	if (miner->Location() != shack)
+	if (miner->getLocation() != shack)
 	{
 		writeOnConsole(GetNameOfEntity(miner->ID()) + ": Walkin' home", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
 		miner->setMessage("Walkin' home");
@@ -251,7 +251,7 @@ void Drink::Enter(BaseGameEntity* pMiner)
 {
 	DrunkMiner* miner = (DrunkMiner*)pMiner;
 
-	if (miner->Location() != saloon)
+	if (miner->getLocation() != saloon)
 	{
 		miner->ChangeLocation(saloon);
 			writeOnConsole(GetNameOfEntity(miner->ID()) + ": Boy, ah sure is thusty! Walking to the saloon", FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);

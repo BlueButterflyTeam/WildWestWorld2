@@ -14,6 +14,11 @@ enum location_type
 	saloon
 };
 
+class Location;
+
+static std::map <int, Location*> worldMap;
+//static Location* worldMap[4];
+
 class Location
 {
 private :
@@ -33,6 +38,7 @@ public:
 
 	void scale(sf::Vector2f scale) { this->sprite.scale(scale); }
 	void setSpriteColor(sf::Color color) { this->sprite.setColor(color); }
+	sf::Vector2f getPosition() { return this->sprite.getPosition(); }
 	void setPosition(float x, float y) { this->setPosition(sf::Vector2f(x, y)); }
 
 	void setPosition(sf::Vector2f pos)

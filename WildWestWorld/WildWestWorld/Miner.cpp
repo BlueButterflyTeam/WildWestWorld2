@@ -51,3 +51,18 @@ bool Miner::Fatigued()const
 
 	return false;
 }
+
+
+//-----------------------------------------------------------------------------
+void Miner::ChangeLocation(const location_type loc)
+{
+	m_Location = loc;
+	//sf::Vector2f position = worldMap[loc]->getPosition();
+	//worldMap[loc]->setSpriteColor(sf::Color::Green);
+
+	//auto tmp = worldMap.find(goldmine);
+
+	//Location* location = worldMap.find(goldmine)->second;
+	//sf::Vector2f position = loc->getPosition();
+	//this->setPosition(position);
+}

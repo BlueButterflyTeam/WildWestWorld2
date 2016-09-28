@@ -75,8 +75,8 @@ public:
 	StateMachine*  GetFSM()const { return m_pStateMachine; }
 
 
-	location_type Location()const { return m_Location; }
-	void          ChangeLocation(const location_type loc) { m_Location = loc; }
+	location_type getLocation()const { return m_Location; }
+	void          ChangeLocation(const location_type loc);
 
 	int           GoldCarried()const { return m_iGoldCarried; }
 	void          SetGoldCarried(const int val) { m_iGoldCarried = val; }
